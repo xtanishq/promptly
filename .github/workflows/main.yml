@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 60 # 🚀 Gives the build up to 1 hour to complete
 
     steps:
       - name: Checkout Code
@@ -23,26 +24,26 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-          cache: 'gradle'
+          cache: 'gradle' # ⚡ Caches Gradle dependencies to save time
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          cache: true
+          cache: true # ⚡ Caches the Flutter SDK and packages
 
       - name: Get dependencies
         run: flutter pub get
 
       - name: Build Release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --verbose # 🔍 Verbose helps see exactly where it hangs
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
 
-      # NEW STEP: This creates the GitHub Release and uploads the APK
       - name: Create GitHub Release
+        if: success() # Only runs if the build succeeds
         uses: softprops/action-gh-release@v1
         with:
           files: build/app/outputs/flutter-apk/app-release.apk
