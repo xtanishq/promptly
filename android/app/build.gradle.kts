@@ -37,16 +37,24 @@ android {
 
     signingConfigs {
         create("release") {
-            // Logic: Use local file if it exists, otherwise use GitHub Environment Variables
-            keyAlias = keystoreProperties["keyAlias"] as String? ?: System.getenv("KEY_ALIAS")
-            keyPassword = keystoreProperties["keyPassword"] as String? ?: System.getenv("KEY_PASSWORD")
-            storePassword = keystoreProperties["storePassword"] as String? ?: System.getenv("KEYSTORE_PASSWORD")
+            // 2. Logic: Try local file first, then try GitHub Environment variables
+            keyAlias = (keystoreProperties["keyAlias"] as String?)
+                ?: System.getenv("KEY_ALIAS")
 
+            keyPassword = (keystoreProperties["keyPassword"] as String?)
+                ?: System.getenv("KEY_PASSWORD")
+
+            storePassword = (keystoreProperties["storePassword"] as String?)
+                ?: System.getenv("KEYSTORE_PASSWORD")
+
+            // 3. Handle the Keystore file path correctly for both environments
             val stFile = keystoreProperties["storeFile"] as String?
             if (stFile != null) {
-                storeFile = file(stFile) // Works on your Mac
+                // Local MacBook path (points to what's inside key.properties)
+                storeFile = file(stFile)
             } else {
-                storeFile = file("../upload-keystore.jks") // Works on GitHub
+                // GitHub Actions path (where the .yml script places the file)
+                storeFile = file("../upload-keystore.jks")
             }
         }
     }
