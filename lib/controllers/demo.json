@@ -1,0 +1,188 @@
+[
+  {
+    "id": "1",
+    "category": "premium",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img/img1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nL2ltZzEucG5nIiwiaWF0IjoxNzY4ODUzNzUyLCJleHAiOjE4MDAzODk3NTJ9.6iC6bp9qebz5NPWUoLFCkxdKMhl5AKRvSTM6Bhu96jA",
+    "prompt": "A cinematic portrait of a young man sitting with a relaxed posture, his head slightly tilted down, wearing a color-blocked shirt in muted tones of orange and blue, illuminated by warm, moody lighting. behind him is a large circular orange backdrop resembling a sunset, creating a striking silhouette effect. editorial, soft shadows, artistic composition, minimalistic background, dreamy and introspective mood, high-quality, natural texture and tones",
+    "gen_count": "12.5k"
+  },
+  {
+    "id": "2",
+    "category": "premium",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img/img2.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nL2ltZzIucG5nIiwiaWF0IjoxNzY4ODUzODIyLCJleHAiOjE4MDAzODk4MjJ9.EsKD4DsUNRV-zP5qI9H58ou1R-VMWNS38Q6HjbsAo0o",
+    "prompt": "Generate a hand-drawn portrait illustration in red and yellow pen on notebook paper, inspired by doodle art and comic annotations. Keep full likeness of the subject, expressive lines, spontaneous gestures, bold outline glow, handwritten notes around, realistic pen stroke texture, 4K resolution.",
+    "gen_count": "10.6k"
+  },
+  {
+    "id": "3",
+    "category": "Portrait",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img/img3.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nL2ltZzMucG5nIiwiaWF0IjoxNzY4ODUzODY3LCJleHAiOjE4MDAzODk4Njd9.FIYLPYeWzCPCZVu_mt-yflKv6tsiH82vWG9Vlwd8qz0",
+    "prompt": "A young woman with the same unchanged face, pale soft complexion, caught in a classic 90s\n\ndisposable-camera snapshot. Her loose black hair falls naturally around her face. She gives a subtle smirk, relaxed and unbothered. She's wearing an oversized faded band T-shirt with a cracked print. The background is a dim beige wall cluttered with polaroids, doodles, and taped-up concert tickets. The harsh on-camera flash creates flat shadows and a raw, nostalgic realism.",
+    "gen_count": "11.2k"
+  },
+  {
+    "id": "4",
+    "category": "Portrait",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img/img4.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nL2ltZzQucG5nIiwiaWF0IjoxNzY4ODUzODk0LCJleHAiOjE4MDAzODk4OTR9.NGAgsik02ArTKjnZ9iQqIXa9wc3K8jgmHL-8ECVxIQs",
+    "prompt": "The generated image uses the uploaded image as a reference for the character, wearing a high-necked, tight-fitting black long-sleeved dress. A cluster of withered wood and orange-pink flowers lies beside an old newsstand, the grainy texture of vintage film interwoven, the blurred background with noticeable trailing shadows, and the double-image effect creating a fantastical atmosphere. A bewitchingly beautiful girl, carrying flowers, is shown in profile, her fair skin delicate and translucent. Her exquisite face is blurred with motion, the outline of her figure slightly swaying with the panning camera, the soft focus making the image even more hazy and languid. A warm-toned, low-saturation filter enhances the effect, her long, backlit hair glowing with a soft glow, the messy strands sweeping wildly across her jawline, the details concealing a captivating yet dangerous allure. Cute movements add dynamism, the motion blur blending with the film grain, creating a trendy, Instagram-worthy image while the blurred image outlines a dynamic scene full of story, cleverly balancing bewitching and sweetness.",
+    "gen_count": "13.8k"
+  },
+  {
+    "id": "5",
+    "category": "Portrait",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img/img5.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nL2ltZzUucG5nIiwiaWF0IjoxNzY4ODU0MDQwLCJleHAiOjE4MDAzOTAwNDB9.epaiYsOx5KIH38D15Ezc8KyINHMN7nYDp6lJDq-dRb8",
+    "prompt": "Create a retro, vintage-inspired image — grainy yet bright — based on the reference picture. The girl should be draped in a perfect red, Pinterest-style aesthetic retro saree. The vibe must capture the essence of a 90s movie brown-haired baddie, with wavy curls and a small flower tucked visibly into her hair, enhanced by a windy, romantic atmosphere. She stands against a solid wall, where deep shadows and dramatic contrasts add mystery and artistry to the scene, creating a moody yet enchanting cinematic effect.",
+    "gen_count": "9.4k"
+  },
+  {
+    "id": "6",
+    "category": "Portrait",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img6.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWc2LnBuZyIsImlhdCI6MTc2ODg1NDEyMSwiZXhwIjoxODAwMzkwMTIxfQ.DUbHDGVXEPH4EpVRSfyLQoanH8_7tef2-34uMkg2FLg",
+    "prompt": "{\n \"Objective\": \"Create a cinematic candid street photograph capturing a quiet, emotional moment in a neon-lit city at night\",\n \"PersonaDetails\": {\n \"Subject\": {\n \"Type\": \"Young woman\",\n \"Pose\": \"Standing in a crowded street, turning her head over her shoulder\",\n \"Gaze\": \"Looking directly at the camera\",\n \"Expression\": \"Calm, introspective, slightly melancholic\",\n \"Hair\": \"Long dark hair, gently damp from rain\",\n\"Wardrobe\": {\n        \"Outerwear\": \"Soft beige coat\"\n      }\n    }\n  },\n  \"SceneDescription\": {\n    \"Location\": \"Crowded neon-lit city street at night\",\n    \"Weather\": \"Light rain\",\n    \"BackgroundElements\": [\n      \"Blurred pedestrians in motion\",\n      \"Glowing neon signs\",\n      \"Colorful city lights\",\n      \"Wet streets with reflective bokeh highlights\"\n    ],\n    \"Atmosphere\": \"Moody, reflective, urban night energy\"\n  },\n  \"Composition\": {\n    \"Framing\": \"Waist-up candid framing\",\n    \"Moment\": \"Unposed, mid-turn capture\",\n    \"DepthOfField\": \"Shallow depth of field\",\n    \"Focus\": \"Sharp subject with soft foreground and background blur\"\n  },\n  \"LightingAndColor\": {\n    \"Lighting\": \"Low-light ambient city illumination\",\n    \"NeonInfluence\": \"Soft neon spill lighting on subject\",\n    \"ColorGrading\": \"Teal and orange cinematic grading\",\n    \"SkinTones\": \"Natural and realistic\"\n  },\n  \"EnvironmentalEffects\": {\n    \"Rain\": \"Visible rain streaks and droplets\",\n    \"Reflections\": \"Bokeh reflections on wet pavement\",\n    \"Glow\": \"Subtle neon glow and light bloom\"\n  },\n  \"PhotographyStyle\": {\n    \"Genre\": \"Cinematic street photography\",\n    \"Aesthetic\": \"Film still realism\",\n    \"LensLook\": \"85mm lens perspective\",\n    \"CameraConditions\": \"Low-light night photography\",\n    \"DetailLevel\": \"Ultra-detailed, photorealistic\"\n  },\n  \"Mood\": {\n    \"Tone\": \"Quiet, emotional, melancholic\",\n    \"Energy\": \"Dreamy yet grounded urban realism\"\n  },\n  \"NegativePrompt\": [\n    \"daylight\",\n    \"posed portrait\",\n    \"studio lighting\",\n    \"overexposed highlights\",\n    \"oversaturated neon\",\n    \"cartoon\",\n    \"anime\",\n    \"blurry subject\"\n  ],\n  \"ResponseFormat\": {\n    \"Type\": \"Single image\",\n    \"Orientation\": \"Portrait\",\n    \"AspectRatio\": \"2:3\"\n  }\n}",
+    "gen_count": "11.7k"
+  },
+  {
+    "id": "7",
+    "category": "Landscape",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img7.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWc3LnBuZyIsImlhdCI6MTc2ODg1NDE0MiwiZXhwIjoxODAwMzkwMTQyfQ.f15XClhCGpq3AshZ2_tIMjDZv_35VaYi56TVdkP0McY",
+    "prompt": "A 2160x3840 pixel (4K) Ultra-Realistic Digital Photo Masterpiece Triptych. The image is a vertical canvas divided into three equal horizontal panels. The main subject, whose face must be 100% identical to the reference photo, is a young woman with long, flowing hair and a flat, nostalgic expression, possessing deep, intelligent eyes. Her outfit is a loose winter black puffer set with wide-cut trousers and a black scarf. The overall mood is melancholy and solitude, set in a snow-covered white landscape with a muted color palette.\nPanel 1 (Portrait Shot): A medium portrait of the character holding a transparent umbrella, silently looking back while gazing directly into the warm glow of a fire. The background is heavily blurred (bokeh), featuring pine trees, a strong aurora borealis, and deep white snow.\nPanel 2 (Full Body Shot): A full-body shot captured from a high, looking-down camera angle. The character stands alone in a vast, open snowfield with scattered pine trees and a few bare, leafless trees. She holds the umbrella, walking while gazing up at the aurora-filled sky, with one hand raised as if catching falling snowflakes in the distance. The scene conveys smallness and isolation against the vastness of nature.\nPanel 3 (Close Up Shot): A tight close-up of the character's face, featuring a flat, distant gaze that evokes feelings of loneliness and longing. The background includes pine trees, the soft aurora glow, and visible snowfall.\nTechnical Specifications: Captured with a Hasselblad X2D 100C camera and a Fujifilm GF 45mm f/2.8 R WR lens (to maintain quality across all perspectives). Soft, dim night lighting is used, with warm contrast from the fire in Panel 1. Focus on the textured puffer material, the soft snow, and the luminous quality of the aurora. Cinematic coloring with a strong emphasis on cold tones and melancholy atmosphere.\nFacial Constraint: Crucial: Use the attached photo as the subject reference. Maintain 100% identical facial features: do not alter the appearance of the eyes, hair, nose, lips, front bangs, and face shape from the source photo. The identity must be perfectly preserved across all three panels.",
+    "gen_count": "15.2k"
+  },
+  {
+    "id": "8",
+    "category": "Landscape",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img8.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWc4LnBuZyIsImlhdCI6MTc2ODg1NDE4NiwiZXhwIjoxODAwMzkwMTg2fQ.6SgBEyBhGtYcaAOaNeTm4uZwYaOELo-8ON4YJ1L3X6M",
+    "prompt": "Create a contemporary art gallery scene using the attached image of a woman's face and appearance without altering her features. A large oil portrait of a woman hangs on the wall. Her face and upper body are painted in a realistic, expressive oil painting style with textured brushstrokes and muted colors. The gallery's clean red wall creates a professional exhibition atmosphere thanks to soft lighting illuminating the artwork. A man stands in front of the painting, viewed from behind, to the right, examining it, lending a cinematic and mysterious feel to the scene.",
+    "gen_count": "20.1k"
+  },
+  {
+    "id": "9",
+    "category": "Landscape",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img9.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWc5LnBuZyIsImlhdCI6MTc2ODg1NDI0NSwiZXhwIjoxODAwMzkwMjQ1fQ.IulLaj27XkmyAbbiPB694p5xa5d8a2iH2IJag-t5krA",
+    "prompt": "Enchanted forest path, sunbeams filtering through trees, morning mist, lush green foliage, magical atmosphere, peaceful hiking trail, 4k",
+    "gen_count": "16.8k"
+  },
+  {
+    "id": "10",
+    "category": "Landscape",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img10.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWcxMC5wbmciLCJpYXQiOjE3Njg4NTQyODUsImV4cCI6MTgwMDM5MDI4NX0.D-kV_ifD6BClJe-TWWnYaT7YPjOtDtdWpjR37hdoW3k",
+    "prompt": "Ultra-realistic cinematic photograph set inside an old Indian police station detention area in New Delhi. The environment is gritty, institutional, and worn-down, with muted greenish-gray concrete walls showing age, stains, and chipped paint. A rectangular black signboard on the back wall clearly reads “Police Station – New Delhi” on the top line and “DETENTION AREA” below it in white capital letters. The room feels dusty, bureaucratic, and tense.\nThe floor is dull gray concrete, slightly uneven and matte, with subtle scuff marks. On both sides of the frame are old wooden tables with dark brown finishes. These tables are cluttered with stacks of aged brown paper files and folders tied with white string, some files leaning unevenly, others stacked neatly. A few files have faded pink and beige covers, suggesting official case documents. Behind the tables, the background includes metal mesh partitions and barred doors typical of Indian police detention areas.\nLighting is cinematic and moody: overhead fluorescent tube lights cast a soft, diffused, slightly greenish-gray illumination. Shadows are natural and directional, falling gently under the chin, arms, and along the floor. The color palette is restrained and desaturated—olive greens, dull grays, khaki browns, and muted skin tones—creating a realistic, somber atmosphere. No dramatic highlights; the light feels institutional and cold.\nIn the center foreground, a young Indian woman is being escorted forward.\nPRESERVE THE FACE 100% EXACTLY AS THE INPUT IMAGE — identical facial structure, proportions, skin texture, age, expression, jawline, eyes, nose, lips, and identity. Do not beautify, stylize, or alter the face in any way. No smoothing, no symmetry correction, no enhancements.\nHer expression is calm and light smirk. Her eyes are looking slightly to the side, not directly at the camera. Dark eyeliner. Lips are relaxed and neutral. Her posture is upright but constrained.\nShe is wearing a strapless black mini dress, form-fitting with a subtle ruched texture that hugs the body naturally.The fabric appears matte with minimal sheen. She is also wearing knee-high black leather boots, fitted closely around the calves, with a smooth leather texture and flat soles. Her wrists are cuffed together with metallic handcuffs in front of her body, catching a faint reflection from the overhead lights.\nHer hair is dark and styled in a slightly messy, loose updo with strands falling naturally around the face and neck—realistic, imperfect, and unstyled rather than glamorous. No heavy accessories, no jewelry, no makeup exaggeration.\nTo her right, a middle-aged Indian male police officer escorts her forward. He has a serious, stern expression, thick mustache, and short, neatly combed hair. He is wearing a standard khaki Indian police uniform with shoulder insignia, name badge, and small service ribbons on the chest. His uniform is slightly worn but clean, with visible seams, pockets, and creases. He wears a brown leather belt with a metallic buckle. His right hand grips her upper arm firmly but not aggressively, conveying authority and control.\nThe camera framing is full-body, eye-level, centered, with a cinematic depth of field. Background elements are slightly softened but still clearly readable. The image feels like a still from a serious crime drama or investigative film—realistic, grounded, tense, and narrative-driven.\nStyle keywords: ultra-realistic, cinematic photography, Indian crime drama aesthetic, documentary realism, high detail, natural skin texture, realistic lighting, shallow depth of field, muted colors, no stylization, no fantasy elements, no glamour. 9:16 image ratio",
+    "gen_count": "14.6k"
+  },
+  {
+    "id": "11",
+    "category": "Landscape",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img11.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWcxMS5wbmciLCJpYXQiOjE3Njg4NTQ4NjUsImV4cCI6MTgwMDM5MDg2NX0.LHhZfy1YvxYcMEYta3E9Bt47VYArbyqHa3W9EdNcPe0",
+    "prompt": "Generate a ultra realistic portrait of a young man sitting on the portable folding camping chair, he fallen his both legs straight and leaning his one leg to another, he holding a thumps up drink Can in his one arm and leaning that hand on side of chair relaxing, His head leaning to backside of chair and titled his head slightly up, he is relaxed and calm, He is on top of the Green Hill edge and downside a beautiful river flowing and Giant mountains are around in background. He wear Black oversized sweater with yellow lining on it and black baggy pant with black sports shoes, Side shot, Three quarters upper shot, sunlight is Good, atmosphere is good, blue sky, wind flow, swallow depth of field, 35mm lens shot, face and hairs exactly same as uploaded image.",
+    "gen_count": "10.9k"
+  },
+  {
+    "id": "12",
+    "category": "Landscape",
+    "image_url": "https://athuoszmfqyylctmnvxq.supabase.co/storage/v1/object/sign/images/img2/img12.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81MDkwNDcwOS00YWRmLTRmNjYtOTkwMC0wMTA1N2JlZmQzOGUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbWFnZXMvaW1nMi9pbWcxMi5wbmciLCJpYXQiOjE3Njg4NTQ5MjgsImV4cCI6MTgwMDM5MDkyOH0.Tn7lHLiTuXfSACPdX89UFz6azrggbZzSLWjTP5hPrRo",
+    "prompt": "Photograph me sitting low on a minimalist metal stool, leg spread forward, and in a relaxed\ngrounded face fleet planted on eventer, one hand loosely resting between the knees, holding thin leather rains, shoulder slightly slouched, Head title downward in a calm intro, prospective expression, the subject wear, dark oversized layer, clothing, wild leg trousers, leather boots, and dark sunglasses. A strong Black horse stand closely behind the seated, figure, aligned, protectively",
+    "gen_count": "16.2k"
+  },
+  {
+    "id": "13",
+    "category": "Landscape",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Grainy film",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "90s minimilaism",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "70s prints",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "retro futurism",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Analog",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Icy blue",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Neon reflection",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Glitchy Glam",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Motion Blur",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Candid",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Messy",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Mystic",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "13",
+    "category": "Dark academia",
+    "image_url": "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d",
+    "prompt": "Minimalist desert landscape, lone tree, vast empty space, pastel sky, serene composition, clean aesthetic, fine art photography, high contrast",
+    "gen_count": "8.5k"
+  },
+
+
+  
+]
+

@@ -1,0 +1,307 @@
+[
+  {
+    "id": "13",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/girl_3.png",
+    "prompt": "Use photo to create an A Y2K-style digital camera mirror selfie using my photo  with long and slightly messy beach wavy brunette hair and honey brown (amber)eyes. She is lying sideways on a bed  white rumpled sheets. She wears a minimalist white ribbed short-sleeve crop top, layered delicate gold coin necklaces, and stacked gold bangles on her wrist. She holds a vintage silver compact point-and-shoot camera up to a mirror; a bright, intense xenon camera flash is firing, creating a realistic lens flare and a hazy, glowing aura around her. The lighting features high-contrast ‘flash photography’ aesthetics with deep shadows in the background and a Soft-focus background, clean girl aesthetic, subtle dewy skin texture, light glossy makeup , Harsh direct flash deep shadows early 2000s digicam grainIndoor room dim light 3:4 ratio\n do not change my face.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "14",
+    "category": "portrait",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/portrait.png",
+    "prompt": "High-contrast black and white photo taken with a 1990s disposable camera at a dark house party. A handsome young man with dark, curly hair and a sharp jawline is staring directly into the lens.\n\nFocus on the eyes: intense, light-colored irises with a piercing, predatory gaze, slightly heavy-lidded (siren eyes), reflecting the harsh camera flash. He is wearing a black button-down shirt. The image is grainy, lo-fi, with a \"dark academia\" bad boy aesthetic. 1:1 image.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "15",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/aesthetic_1.png",
+    "prompt": "The generated image uses the uploaded image as a reference for the character, wearing a high-necked, tight-fitting black long-sleeved dress. A cluster of withered wood and orange-pink flowers lies beside an old newsstand, the grainy texture of vintage film interwoven, the blurred background with noticeable trailing shadows, and the double-image effect creating a fantastical atmosphere. A bewitchingly beautiful girl, carrying flowers, is shown in profile, her fair skin delicate and translucent. Her exquisite face is blurred with motion, the outline of her figure slightly swaying with the panning camera, the soft focus making the image even more hazy and languid. A warm-toned, low-saturation filter enhances the effect, her long, backlit hair glowing with a soft glow, the messy strands sweeping wildly across her jawline, the details concealing a captivating yet dangerous allure. Cute movements add dynamism, the motion blur blending with the film grain, creating a trendy, Instagram-worthy image while the blurred image outlines a dynamic scene full of story, cleverly balancing bewitching and sweetness.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "16",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/girl_4.png",
+    "prompt": "{\n  \"subject\": {\n    \"description\": \"Young woman, approximately late teens or early 20s\",\n    \"pose\": \"Looking back over her shoulder at the viewer, body turned slightly away\",\n    \"expression\": \"Calm, neutral, slightly melancholic, direct eye contact\"\n  },\n  \"face\": {\n    \"skin\": \"Fair complexion, natural texture, distinct rosy cheeks and nose (cold flush)\",\n    \"eyes\": \"Large, clear hazel-green eyes, sharp focus, long lashes\",\n\"lips\": \"Soft natural pink, closed mouth\",\n    \"makeup\": \"Minimal to no visible makeup, natural look\"\n  },\n  \"hair\": {\n    \"color\": \"Dark brown\",\n    \"style\": \"Loosely pulled back into a messy bun or updo\",\n    \"details\": \"Loose wisps framing the face, covered in varying sizes of white snowflakes\"\n  },\n  \"clothing\": {\n    \"main_piece\": \"Thick, textured woven shawl or blanket wrapped around shoulders\",\n    \"pattern\": \"Faded paisley or floral motif\",\n    \"colors\": \"Beige base with muted rust-orange and faded denim blue accents\",\n    \"texture\": \"Woolen, coarse weave, dusted with fresh snow\"\n  },\n  \"accessories\": [],\n  \"environment\": {\n    \"setting\": \"Outdoor winter scene, rural village\",\n    \"background_elements\": [\n      \"Blurred wooden log cabin or structure on the left\",\n      \"Indistinct group of people in period-style clothing in the distance\",\n      \"Bare tree branches\",\n      \"White snowy ground\"\n    ],\n    \"atmosphere\": \"Cold, snowy, quiet\"\n  },\n  \"lighting\": {\n    \"type\": \"Soft, diffuse natural light\",\n    \"quality\": \"Overcast sky (flat lighting)\",\n    \"shadows\": \"Very soft, minimal shadows on face\"\n  },\n  \"camera\": {\n    \"perspective\": \"Eye-level\",\n    \"shot_type\": \"Medium close-up portrait\",\n    \"focus\": \"Shallow depth of field (bokeh), sharp focus on eyes and face, blurred background\",\n    \"lens_effect\": \"Portrait focal length (approx 85mm)\"\n  },\n  \"style\": {\n    \"aesthetic\": \"Cinematic realism with a vintage or painterly quality\",\n    \"mood\": \"Nostalgic, serene, wintery\",\n    \"visual_treatment\": \"Soft colors, slight film grain texture, naturalistic\"\n  }\n}",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "17",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/girl_5.png",
+    "prompt": "A young woman with the same unchanged face, pale soft complexion, caught in a classic 90s\n\ndisposable-camera snapshot. Her loose black hair falls naturally around her face. She gives a subtle smirk, relaxed and unbothered. She's wearing an oversized faded band T-shirt with a cracked print. The background is a dim beige wall cluttered with polaroids, doodles, and taped-up concert tickets. The harsh on-camera flash creates flat shadows and a raw, nostalgic realism..",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "18",
+    "category": "trending",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/trending_1.png",
+    "prompt": "Create a grungy, 3D embossed style realistic black and white close-up face portrait of the person provided in the reference image. The image must be constructed as a chaotic collage using torn fragments of realistic vintage newspaper clippings, old advertisements with visible halftone dot patterns, and distressed paper textures. The color palette is black and white, applied in heavy, overlapping layers that define her face and hair. Add dynamic elements like aggressive ink splatters, spray paint drips, and stencil artifacts across the entire composition. Text fragments from the newspapers should be legible within the colored sections. The background is vintage newspaper clippings. The overall feel should be raw, textured, and rebellious street art. Image ratio 3:4. Keep face 100% same as reference image provided. Straight face. No smile. Cold and classy look like a pop star. Hair tied back. Bossy look.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "19",
+    "category": "boy",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/boy_1.png",
+    "prompt": "A slim-fit 5'7 young man riding a powerful black hairy horse, captured from a frontside angle (three-quarter frontal view). The camera is positioned slightly lower, facing him as the horse moves forward, creating a strong, confident cinematic presence. He is glancing slightly to the side with a composed, fearless expression, fully visible face.\nHe sits upright and balanced, holding the reins naturally while leaning subtly into the horse's forward motion. The horse is muscular and majestic, with a thick flowing mane, captured mid-stride, emphasizing strength and speed.\nHe is wearing an oversized white linen shirt with the top buttons open, light blue baggy jeans, and clean white Nike Air Force 1 sneakers. A subtle silver wristwatch reflects light on his wrist, and narrow-frame rectangular classy sunglasses complete his modern, stylish look.\nHis face must be preserved 100% exactly as provided. Do NOT change facial structure, proportions, skin texture, eye shape, nose, lips, jawline, expression, or identity. No beautification, no face swap, no smoothing, no Al alteration of facial features.\nThe background is strongly motion-blurred, with streaking blur lines to clearly indicate forward movement, while the subject and horse remain sharp and in focus. Dust particles and slight blur around the horse's legs enhance realism and dynamic speed.\nThe image features a vintage cinematic grain aesthetic, inspired by Leica M11\nMonochrome, with rich black-and-white tones, deep contrast, dramatic shadows, soft highlights, and a timeless editorial feel. Add subtle film grain and cinematic depth of field for a high-end fashion photography look.\nUltra-realistic, cinematic composition, shallow depth of field, dynamic motion blur, dramatic storytelling, monochrome masterpiece.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "20",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/trending_5.png",
+    "prompt": "Keep the same face and facial features exactly as in the reference image. Create a hyper-realistic photograph of a young woman Indonesia standing in heavy winter snowfall, holding a vintage black umbrella. She is turned slightly toward the camera, her face softly visible in semi-profile. The background remains dark and blurred, enhancing the contrast with the falling snow. Cool, desaturated tones evoke a quiet, melancholic mood. Each snowflake is finely detailed, giving the image a dreamy, ethereal quality. The overall aesthetic should resemble retro film photography, with subtle grain and a deep, rich color palette.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "21",
+    "category": "trending",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/trending_3.png",
+    "prompt": "A hyper-realistic cinematic portrait of a young man sitting indoors in a dark room, leaning slightly forward on a couch. His right hand is partially covering his mouth and nose, fingers relaxed but tense, showing visible veins on the hand and forearm. He is wearing a black t-shirt and a silver bracelet with a small flower charm on his wrist.\n\nHis hair is medium-length, messy, slightly wavy, falling over his forehead and partially covering one eye. A strong red light source from the left side\ncasts dramatic red highlights across his face and hand, while the rest of the scene remains in deep shadow.\nThe lighting is low-key, moody, and cinematic with high contrast, soft ambient shadows, and a dark blurred background. Skin texture is natural and detailed, pores visible, realistic tone.\nCamera angle is close-up, slightly above eye level, intimate perspective, shallow depth of field.\nShot on a full-frame camera, 50mm lens, f/1.8, ultra-realistic, RAW photo look, cinematic color grading, sharp focus on eyes and hand, soft background blur.\nMood: mysterious, emotional, introspective, modern aesthetic.\nUltra-high resolution, photorealistic, no CGI, no illustration, no cartoon.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "22",
+    "category": "trending",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/trending_2.png",
+    "prompt": "Transform this image [Upload Your Image] into a 64K DSLR shot resolution of A haunting surreal portrait of bold pop-art / comic-book style illustrated portrait of a smiling young woman (same face as the uploaded image), shown from the shoulders up in a three-quarter view, looking slightly upward with a joyful, confident expression. Her face is rendered in high-contrast grayscale shading using halftone dots, thick ink outlines, and cross-hatching techniques reminiscent of modern graphic novels and editorial illustrations. She has long, straight hair flowing naturally over her shoulders, illustrated with bold black shapes, white highlights, and golden accents. Her facial features are clean, expressive, and stylized rather than photorealistic, emphasizing optimism and warmth.\n\nShe wears a mustard-yellow turtleneck top, which becomes a strong focal color against the monochrome face. The background is an explosive graphic composition filled with dynamic geometric shapes, diagonal motion lines, halftone textures, abstract tech symbols, speech bubbles, and futuristic Ul-inspired elements. The color palette is tightly controlled: black, white, gray, and vibrant yellow, with occasional minimal accent icons (chemical symbols, speech bubbles, circuitry motifs) that give the image a modern editorial / tech-meets-art aesthetic. The overall design feels like a magazine cover, poster art, or branding illustration, with strong visual hierarchy, sharp edges, clean vector styling, and high print-ready contrast. The mood is energetic, intelligent, creative, and empowering.\n\nArt Style\n\nPop art illustration, modern comic book, vector illustration, editorial graphic design, halftone\n\nshading\n\nColor Palette\n\nBlack, white, grayscale, bold mustard yellow, minimal accent highlights\n\nLine & Texture\n\nThick ink outlines, halftone dots, cross-hatching, flat vector fills, sharp geometric shapes.\nOptimistic, confident, intelligent, energetic, modern.\n\nThree-quarter portrait, upward gaze, dynamic abstract background, strong contrast and symmetry. Ultra-sharp vector quality, print-ready, high resolution, clean edges, no blur.\n\nNegative Prompt: photorealism, soft lighting, blur, painterly brushstrokes, muted colors.\n\nAspect Ratio: 4:5 or poster layout\n\nUse Case: magazine cover, brand illustration, character poster, tech editorial art. Octane render & Unreal Engine 5.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "23",
+    "category": "trending",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/trending_6.png",
+    "prompt": "Photograph me sitting low on a minimalist metal stool, legs spread forward in a relaxed, grounded pose, feet planted on uneven outdoor terrain. One hand loosely resting between the knees holding thin leather reins, shoulders slightly slouched, head tilted downward in a calm, introspective expression.The subject wears dark oversized layered clothing, wide-leg trousers, leather boots, and dark sunglasses.A strong black horse stands closely behind the seated figure, aligned protectively and partially overlapping the subject’s silhouette.Open natural landscape with rough ground and wild grass, bright overexposed sky creating strong negative space.High contrast lighting, deep blacks, soft highlights, matte texture.Timeless, cinematic mood. Medium-format film look, subtle grain, monochrome fine-art fashion editorial, avant-garde luxury photography. give me this picture in 1080p quality. 9:16 image. Horse face in frame close to my face.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "24",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/girl_8.png",
+    "prompt": "{\n \"Objective\": \"Create a cinematic candid street photograph capturing a quiet, emotional moment in a neon-lit city at night\",\n \"PersonaDetails\": {\n \"Subject\": {\n \"Type\": \"Young woman\",\n \"Pose\": \"Standing in a crowded street, turning her head over her shoulder\",\n \"Gaze\": \"Looking directly at the camera\",\n \"Expression\": \"Calm, introspective, slightly melancholic\",\n \"Hair\": \"Long dark hair, gently damp from rain\",\n\"Wardrobe\": {\n        \"Outerwear\": \"Soft beige coat\"\n      }\n    }\n  },\n  \"SceneDescription\": {\n    \"Location\": \"Crowded neon-lit city street at night\",\n    \"Weather\": \"Light rain\",\n    \"BackgroundElements\": [\n      \"Blurred pedestrians in motion\",\n      \"Glowing neon signs\",\n      \"Colorful city lights\",\n      \"Wet streets with reflective bokeh highlights\"\n    ],\n    \"Atmosphere\": \"Moody, reflective, urban night energy\"\n  },\n  \"Composition\": {\n    \"Framing\": \"Waist-up candid framing\",\n    \"Moment\": \"Unposed, mid-turn capture\",\n    \"DepthOfField\": \"Shallow depth of field\",\n    \"Focus\": \"Sharp subject with soft foreground and background blur\"\n  },\n  \"LightingAndColor\": {\n    \"Lighting\": \"Low-light ambient city illumination\",\n    \"NeonInfluence\": \"Soft neon spill lighting on subject\",\n    \"ColorGrading\": \"Teal and orange cinematic grading\",\n    \"SkinTones\": \"Natural and realistic\"\n  },\n  \"EnvironmentalEffects\": {\n    \"Rain\": \"Visible rain streaks and droplets\",\n    \"Reflections\": \"Bokeh reflections on wet pavement\",\n    \"Glow\": \"Subtle neon glow and light bloom\"\n  },\n  \"PhotographyStyle\": {\n    \"Genre\": \"Cinematic street photography\",\n    \"Aesthetic\": \"Film still realism\",\n    \"LensLook\": \"85mm lens perspective\",\n    \"CameraConditions\": \"Low-light night photography\",\n    \"DetailLevel\": \"Ultra-detailed, photorealistic\"\n  },\n  \"Mood\": {\n    \"Tone\": \"Quiet, emotional, melancholic\",\n    \"Energy\": \"Dreamy yet grounded urban realism\"\n  },\n  \"NegativePrompt\": [\n    \"daylight\",\n    \"posed portrait\",\n    \"studio lighting\",\n    \"overexposed highlights\",\n    \"oversaturated neon\",\n    \"cartoon\",\n    \"anime\",\n    \"blurry subject\"\n  ],\n  \"ResponseFormat\": {\n    \"Type\": \"Single image\",\n    \"Orientation\": \"Portrait\",\n    \"AspectRatio\": \"2:3\"\n  }\n}",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "27",
+    "category": "girl",
+    "image_url": "https://831c78a2.promptly-assets.pages.dev/images/trending_9.png",
+    "prompt": "cinematic portrait photography, motion blur crowd effect, urban stillness aesthetic, modern editorial style, minimal fashion mood, emotional realism, street photography vibes, fine art portrait, contemporary visual storytelling, high fashion editorial look, moody color grading, depth and motion contrast, subject isolation technique, viral visual composition, cinematic framing, artistic photography style.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "28",
+    "category": "girl",
+    "image_url": "https://promptly-assets.pages.dev/girl/girl_1.png",
+    "prompt": "cinematic portrait photography, motion blur crowd effect, urban stillness aesthetic, modern editorial style, minimal fashion mood, emotional realism, street photography vibes, fine art portrait, contemporary visual storytelling, high fashion editorial look, moody color grading, depth and motion contrast, subject isolation technique, viral visual composition, cinematic framing, artistic photography style.",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "29",
+    "category": "girl",
+    "image_url": "https://promptly-assets.pages.dev/girl/girl_2.png",
+    "prompt": "A candid, naturalistic portrait photograph of the person in the attached photo, captured outdoors in a rural winter landscape covered in pristine white snow. The person’s facial features, identity, and expression must be perfectly preserved from the reference image, including any subtle freckles. Soft, diffused overcast daylight creates gentle illumination with minimal shadows. The person is positioned with their back mostly turned, head turned over their right shoulder to directly face the camera with a pensive, serene gaze. They are wrapped in a thick, textured woven shawl or blanket with an intricate, rustic pattern in muted earthy tones. Snowflakes are visibly falling and delicately settled on their hair and shawl. The background is a blurred bokeh of snow-laden bare trees and a rustic wooden cabin. Cool, desaturated, muted tones with a slightly grainy, filmic texture. Medium close-up, portrait orientation (approximately 4:5 aspect ratio)",
+    "gen_count": "8.5k"
+  },
+  {
+    "id": "30",
+    "category": "girl",
+    "image_url": "https://promptly-assets.pages.dev/girl/girl_3.png",
+    "prompt": "A high-resolution, candid portrait of the person in the attached photo, captured in an outdoor urban street scene during the golden hour. The subject’s facial features, identity, and serene expression must be perfectly preserved from the reference image. The scene is backlit by warm, late afternoon sunlight creating a gentle atmospheric haze and a luminous halo effect around the subject's hair. The subject is standing upright with their body angled 15 degrees and their head tilted subtly toward the camera, maintaining direct eye contact. They are wearing a soft white floral-patterned cropped top with a sweetheart neckline and puff sleeves, paired with high-waisted light wash denim jeans. A brown leather bag strap is on their shoulder. The background features a soft, dreamlike bokeh of city buildings and pedestrian silhouettes. Medium close-up, portrait orientation, with a shallow depth of field.",
+    "gen_count": "8.5k"
+  },
+
+
+
+    {
+      "id": "32",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_5.png",
+      "prompt": "A cinematic, film-aesthetic portrait of the person in the attached photo seated on a rustic wooden bench in a lush park. The person’s identity and contemplative expression must be perfectly preserved as they look down at an open book. They are dressed in a traditional dark indigo blue saree with white floral motifs and a cream blouse. A small white flower is tucked behind their ear, and they are wearing wired earbuds. Soft, diffused afternoon light with a deep green foliage bokeh. Medium shot, 2:3 aspect ratio.",
+      "gen_count": "12.1k"
+    },
+    {
+      "id": "33",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_6.png",
+      "prompt": "A sophisticated, warm-toned portrait of the person in the attached photo in an upscale indoor setting. The subject’s facial features, identity, and soft, subtle smile must be perfectly preserved. They are wearing a luxurious, olive-green satin halter-neck dress with a deep V-neckline. Their hair is elegantly styled in a loose updo. The lighting is warm and moody, with soft golden glows from background lamps. Shallow depth of field with a focus on the subject's face. Portrait orientation.",
+      "gen_count": "9.4k"
+    },
+    {
+      "id": "34",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_7.png",
+      "prompt": "A natural, airy portrait of the person in the attached photo sitting in a sun-drenched grassy meadow. The person’s facial features and serene expression must be perfectly preserved. They are wearing a romantic white puff-sleeve dress and holding a small bouquet of pale pink roses. The lighting is the soft, hazy glow of late afternoon. A rustic wicker basket is visible beside them. The background is a soft-focus field of golden grass. Medium shot, high-resolution digital film style.",
+      "gen_count": "15.2k"
+    },
+    {
+      "id": "35",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_8.png",
+      "prompt": "A soft, candid indoor portrait of the person in the attached photo. Their facial features, identity, and slight, charming smile must be perfectly preserved. They are wearing an oversized, cream-colored knit sweater featuring a prominent pink satin bow on the chest. Their hair is styled in a high, messy bun with soft bangs framing the face. The background is a simple room wall decorated with a grid of aesthetic polaroid-style photos. The lighting is soft and frontal, creating a warm, cozy atmosphere. High-resolution, medium close-up shot.",
+      "gen_count": "7.8k"
+    },
+    {
+      "id": "36",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_9.png",
+      "prompt": "A moody, atmospheric portrait of the person in the attached photo leaning against a textured wall. The person’s identity and soft, confident expression must be perfectly preserved. They are draped in a rich, deep crimson red saree with a delicate gold-beaded border. A small white flower is tucked into their long, wavy hair. The scene is lit with warm, dramatic side-lighting that casts soft shadows, highlighting the subject's features. The overall color palette is warm and earthy with a filmic grain. Portrait orientation, medium shot.",
+      "gen_count": "11k"
+    },
+    {
+      "id": "37",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_10.png",
+      "prompt": "A sophisticated, high-fashion portrait of the person in the attached photo looking back over their right shoulder. The subject’s facial features and identity must be perfectly preserved from the reference image. They are wearing a pristine white, backless draped saree ensemble, accented by layered silver body chains cascading down their back. Their hair is elegantly swept up into a textured bun. The lighting is bright and airy against a neutral, minimalist background. Sharp focus on the subject with a shallow depth of field, 4:5 aspect ratio.",
+      "gen_count": "20.4k"
+    },
+    {
+      "id": "38",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_11.png",
+      "prompt": "A striking, black and white candid photograph of the person in the attached photo walking down an urban street. The person’s facial features and identity must be perfectly preserved. They are wearing a long, dark structured overcoat over a dark outfit, with their hair blowing dynamically in the wind. The camera angle is slightly elevated, looking down as the subject walks. The background is a blurred asphalt road with faint street markings. High-contrast, film noir aesthetic with visible grain and a sense of motion. Portrait orientation.",
+      "gen_count": "6.2k"
+    },
+    {
+      "id": "39",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_12.png",
+      "prompt": "A nostalgic, vintage-style indoor portrait of the person in the attached photo lying relaxed on a floral-patterned bed. The subject's facial features and identity must be perfectly preserved. They are wearing a shimmering, dusty-rose traditional lehenga with intricate gold embroidery and traditional jhumka earrings. The lighting is soft and warm with a slight film grain and a vintage date stamp effect in the corner. High-resolution, medium close-up shot.",
+      "gen_count": "18k"
+    },
+    {
+      "id": "40",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_13.png",
+      "prompt": "A warm, naturalistic portrait of the person in the attached photo leaning against a dark, rustic wooden door. The person's facial features, identity, and soft, serene expression must be perfectly preserved. They are wearing a cream-colored saree with red polka dots and a matching red blouse, with a small white flower tucked into their wavy hair. The lighting is soft and diffused, highlighting the textures of the fabric and the wooden background. Portrait orientation, medium shot.",
+      "gen_count": "8.9k"
+    },
+    {
+      "id": "41",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_14.png",
+      "prompt": "A creative photograph showing a gallery setting with a large, framed oil painting of the person in the attached photo. The face in the painting must perfectly preserve the identity of the person in the reference image. The subject in the painting has long, wavy dark hair and a serene expression. The gallery wall is a bold crimson red. Professional lighting, wide shot, capturing both an observer and the detailed portrait.",
+      "gen_count": "5.7k"
+    },
+    {
+      "id": "42",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_15.png",
+      "prompt": "A breathtaking, atmospheric portrait of the person in the attached photo at the beach during a vibrant sunset. The subject is looking over their shoulder, and their facial features and identity must be perfectly preserved. Their skin and hair are dusted with shimmering golden glitter that catches the fading light. They are wearing a simple white spaghetti-strap dress. The background features the dark ocean and a fiery orange sun. Moody, high-contrast lighting with a filmic quality.",
+      "gen_count": "25.1k"
+    },
+    {
+      "id": "43",
+      "category": "girl",
+      "image_url": "https://promptly-assets.pages.dev/girl/girl_16.png",
+      "prompt": "A romantic, cinematic portrait of the person in the attached photo holding a single red rose. The subject's facial features, identity, and gentle smile must be perfectly preserved from the reference image. They are draped in a rich, solid red saree. The background is a beautiful, warm bokeh of golden city lights. The lighting is soft and ethereal, creating a glow around the subject. High-resolution, medium shot, with a vintage film texture.",
+      "gen_count": "13.6k"
+    },
+
+      {
+        "id": "49",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_1.png",
+        "prompt": "A cinematic three-panel triptych of the person in the attached photo at a serene beach. Top panel: their back turned toward the ocean. Middle and bottom panels: close-up profiles of their face with a pensive, calm expression. The subject's facial features and identity must be perfectly preserved. They are wearing a white linen shirt. The lighting is a moody, cool-toned blue dusk, creating a tranquil and emotional atmosphere. High-resolution, filmic grain.",
+        "gen_count": "18.2k"
+      },
+      {
+        "id": "50",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_2.png",
+        "prompt": "A dramatic, high-contrast black and white portrait of the person in the attached photo sitting in a dark room. The subject's facial features, identity, and thoughtful expression must be perfectly preserved. Strong 'film noir' lighting creates a window-pane shadow effect across the subject and the back wall. They are wearing a dark textured overcoat and jeans, with a slight, stylish dishevelment to their hair. Sharp focus, deep shadows, and professional studio quality.",
+        "gen_count": "12.5k"
+      },
+      {
+        "id": "51",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_3.png",
+        "prompt": "An atmospheric sunset portrait of the person in the attached photo at the coast. The subject is looking over their shoulder toward the camera, and their facial features and identity must be perfectly preserved. Their skin and hair are dusted with shimmering golden glitter, catching the vibrant orange light of the setting sun. They are wearing a light-colored button-down shirt. The background features a deep purple and orange sky over a dark ocean. Moody, high-resolution aesthetic.",
+        "gen_count": "22.9k"
+      },
+      {
+        "id": "52",
+        "category": "couple",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_4.png",
+        "prompt": "A romantic, high-fashion couple's portrait. The woman's facial features and identity must be perfectly preserved from the attached photo, appearing as the central subject. She is wearing a sleek black satin slip dress and is being embraced by a man in a textured green tweed suit who is holding a red rose. The setting is a moody, dimly lit room with a plush red velvet backdrop. Warm, cinematic lighting with a focus on elegant textures and romantic chemistry. Professional magazine style.",
+        "gen_count": "30.4k"
+      },
+      {
+        "id": "53",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_5.png",
+        "prompt": "A cinematic three-panel triptych of the person in the attached photo at a golden-hour cliffside. Top panel: subject facing the setting sun. Middle panel: subject holding a small bouquet of yellow wildflowers with a gentle smile. Bottom panel: a warm, close-up profile. The subject's facial features and identity must be perfectly preserved. The lighting is an intense, warm golden glow. The background is a hazy, sun-drenched ocean horizon. Emotional, peaceful, and high-resolution.",
+        "gen_count": "14.7k"
+      },
+      {
+        "id": "54",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_6.png",
+        "prompt": "A moody, low-key indoor portrait of the person in the attached photo sitting on a sofa. The subject’s facial features and identity must be perfectly preserved. One side of their face is bathed in a dramatic red neon glow, while the other remains in deep shadow. They are wearing a simple black t-shirt and a silver chain bracelet. The background is dark and indistinct, creating an intense, mysterious atmosphere. Professional cinematic lighting, high-resolution.",
+        "gen_count": "11.4k"
+      },
+      {
+        "id": "55",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_7.png",
+        "prompt": "A clean, high-resolution three-panel triptych of the person in the attached photo on a wooden pier. Top panel: their back to the camera, looking at the calm sea. Middle panel: a side profile as they hold a bouquet of white roses. Bottom panel: a direct, serious headshot facing the camera. The subject's facial features and identity must be perfectly preserved. They are wearing a crisp white button-down shirt. The lighting is the soft, even light of early morning. Filmic and serene.",
+        "gen_count": "19.8k"
+      },
+      {
+        "id": "56",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_8.png",
+        "prompt": "A cinematic three-panel triptych of the person in the attached photo at a foggy beach. Top panel: a wide shot from behind. Middle panel: the subject looking down at a bouquet of white roses with a pensive expression. Bottom panel: a bold, direct close-up of their face. The subject's facial features and identity must be perfectly preserved. They are wearing a dark charcoal jacket over a grey tee. The lighting is cool-toned, misty, and desaturated, creating a quiet, reflective mood. High-resolution digital photography.",
+        "gen_count": "13.2k"
+      },
+      {
+        "id": "57",
+        "category": "girl",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_9.png",
+        "prompt": "A moody, cinematic winter portrait of the person in the attached photo standing under a dark umbrella during a heavy snowfall. The subject’s facial features, identity, and calm expression behind thin gold-rimmed glasses must be perfectly preserved. They are wearing a thick charcoal overcoat. The background is a blurred, snow-dusted traditional garden at dusk. High-contrast, cool-toned lighting with a soft filmic grain. High-resolution, portrait orientation.",
+        "gen_count": "15.4k"
+      },
+      {
+        "id": "58",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_10.png",
+        "prompt": "An intense, low-key indoor portrait of the person in the attached photo. The subject’s facial features and identity must be perfectly preserved. The scene is dominated by a sharp red neon light from the side, casting the other half of their face into deep shadow. They are sitting on a sofa, with one hand partially covering their mouth in a pensive gesture. A silver star-motif bracelet is visible on their wrist. Moody, atmospheric, and high-resolution.",
+        "gen_count": "9.2k"
+      },
+      {
+        "id": "59",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_11.png",
+        "prompt": "A professional 'Developer at Work' aesthetic portrait of the person in the attached photo. The subject’s facial features and identity must be perfectly preserved as they focus on multiple computer monitors displaying lines of code. The room is dimly lit with vibrant purple and blue ambient glow. They are wearing a dark hoodie. The atmosphere is high-tech and focused, with realistic dust particles catching the monitor light. Cinematic wide shot, 16:9 aspect ratio.",
+        "gen_count": "22.1k"
+      },
+      {
+        "id": "60",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_12.png",
+        "prompt": "A luxury lifestyle portrait of the person in the attached photo leaning against a classic red convertible car. The subject’s facial features, identity, and joyful smile must be perfectly preserved. They are wearing an impeccably tailored white three-piece suit, yellow-tinted aviator sunglasses, and layered gold chains. The setting is a sun-drenched coastal road with a city skyline and ocean in the background. Bright, high-end commercial aesthetic. High-resolution.",
+        "gen_count": "28.5k"
+      },
+      {
+        "id": "61",
+        "category": "couple",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_13.png",
+        "prompt": "A romantic, high-contrast silhouette portrait of a couple at sunset. The woman's facial features and identity must be perfectly preserved from the attached photo. She is leaning into the man, who is holding a single red rose. The background features a glowing orange sun dipping behind a detailed city skyline. The lighting creates a warm rim light around the subjects, highlighting the woman's profile and the delicate textures of her lace dress. Cinematic, emotional, and high-resolution.",
+        "gen_count": "24.1k"
+      },
+      {
+        "id": "62",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_14.png",
+        "prompt": "A surreal, high-concept cinematic scene featuring the person in the attached photo sitting on stone steps. The subject’s facial features and identity must be perfectly preserved. They are looking with wonder at a glowing, ethereal, translucent spirit of a woman who is handing them a single red rose. The setting is a mystical, overgrown ancient temple at night with floating embers in the air. Soft, magical lighting and a dreamlike atmosphere. 8k resolution, detailed textures.",
+        "gen_count": "35.8k"
+      },
+      {
+        "id": "63",
+        "category": "boy",
+        "image_url": "https://promptly-assets.pages.dev/trending/trending_15.png",
+        "prompt": "A cinematic three-panel triptych of the person in the attached photo at a foggy beach, emphasizing a narrative journey. The subject's facial features and identity must be perfectly preserved in all panels. Top panel: a wide shot of the subject from behind facing the misty ocean. Middle panel: a side profile of the subject holding a bouquet of white roses with a pensive gaze. Bottom panel: a direct, sharp-focus close-up of the subject's face. Cool, desaturated tones with a filmic grain.",
+        "gen_count": "12.9k"
+      }
+    ]
