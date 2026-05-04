@@ -7,12 +7,18 @@ import 'package:promptly/services/firebase_configuration/RemoteConfigService.dar
 import 'package:promptly/services/language_service.dart';
 import 'package:promptly/utils/AppRoutes.dart';
 import 'package:promptly/utils/AppTheme.dart';
+import 'data/creations_store.dart';
+import 'injection.dart';
 import 'l10n/app_localizations.dart';
+import 'network/api_client.dart';
 
 Future<void> main() async {
   // Ensure Flutter is ready for platform calls
   WidgetsFlutterBinding.ensureInitialized();
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await CreationsStore().init();
+  ApiClient.instance.init();
+  configureDependencies();
   // 1. Core System UI Configuration
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   SystemChrome.setPreferredOrientations([

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:promptly/screens/common_screen/privacy_policy.dart';
+import 'package:promptly/screens/common_screen/my_creations_screen.dart';
 import 'package:promptly/services/constant.dart';
 
 import '../../services/checkConnectivity.dart';
@@ -90,6 +91,28 @@ class SettingScreen extends StatelessWidget {
                   ),
 
                   60.verticalSpace,
+
+                  PressUnpress(
+                    onTap: () {
+                      Get.to(() => const MyCreationsScreen());
+                    },
+                    height: 180.h,
+                    width: 1103.w,
+                    pressGradient: pressGradiant,
+                    unPressGradient: unPressGradiant,
+                    child: Center(
+                      child: AutoSizeText(
+                        "My Creations",
+                        style: TextStyle(
+                          fontSize: 55.sp,
+                          fontFamily: "semibold",
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  40.verticalSpace,
 
                   PressUnpress(
                     onTap: () {

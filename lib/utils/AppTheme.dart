@@ -14,6 +14,14 @@ class AppTheme {
   static const String uiFont = 'PlusJakarta';
   // static const String codeFont = 'JetBrainsMono';
 
+  static const Color backgroundDark = _background;
+  static const Color textMain = Colors.white;
+  static const Color surfacePrimary = _surface;
+  static const Color surfaceSecondary = Color(0xFF2A2A2A);
+  static const Color accentPurple = _brandPurple;
+  static const Color textMuted = Colors.white54;
+  static const Color borderSubtle = Colors.white24;
+
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,

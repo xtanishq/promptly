@@ -16,7 +16,7 @@ class RemoteConfigService extends GetxService {
   Future<RemoteConfigService> init() async {
     try {
       // 1. Initialize Firebase
-      await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+      await Firebase.initializeApp();
 
       // 2. CHECK: Print status
       if (Firebase.apps.isNotEmpty) {

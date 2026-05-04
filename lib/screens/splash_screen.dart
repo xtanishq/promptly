@@ -8,6 +8,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:promptly/services/constant.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_state.dart';
+import '../utils/auth_repository.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Initialize App State
     // final appState = Provider.of<AppState>(context, listen: false);
     // await appState.initializeApp();
+    await AuthRepository().authenticateUser();
 
     // Artificial delay for the "Vibe"
     await Future.delayed(const Duration(seconds: 2));

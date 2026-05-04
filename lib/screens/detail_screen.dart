@@ -10,6 +10,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:share_plus/share_plus.dart';
 import '../data/prompt_model.dart';
 import '../providers/app_state.dart';
+import '../image_and_text/presentation/pages/image_and_text_page.dart';
 
 class DetailScreen extends GetView<AppController> {
   const DetailScreen({super.key});
@@ -133,30 +134,62 @@ class DetailScreen extends GetView<AppController> {
 
                     // Prompt Text
                     50.verticalSpace,
-                    // Copy Button
-                    SizedBox(
-                          width: double.infinity,
-                          height: 56,
-                          child: ElevatedButton.icon(
-                            onPressed: () => _handleCopy(prompt),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFCCFF00),
-                              foregroundColor: Colors.black,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                    // Buttons Row
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 56,
+                            child: ElevatedButton.icon(
+                              onPressed: () => _handleCopy(prompt),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFCCFF00),
+                                foregroundColor: Colors.black,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
-                            ),
-                            icon: const Icon(Icons.copy),
-                            label: const Text(
-                              "COPY FULL PROMPT",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                              icon: const Icon(Icons.copy),
+                              label: const Text(
+                                "COPY",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: SizedBox(
+                            height: 56,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Get.to(() => ImageAndTextPage(initialPrompt: prompt.promptText));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.black,
+                                elevation: 0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              icon: const Icon(Icons.auto_awesome),
+                              label: const Text(
+                                "GENERATE",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                         .animate(delay: 200.ms)
                         .slideY(begin: 0.2, end: 0)
                         .fadeIn(),

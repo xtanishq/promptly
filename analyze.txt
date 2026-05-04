@@ -1,0 +1,215 @@
+Analyzing promptly...                                           
+
+   info • The file name 'HomeController.dart' isn't a lower_case_with_underscores identifier • lib/controllers/HomeController.dart:1:1 • file_names
+warning • Unused import: '../data/prompt_data.dart' • lib/controllers/HomeController.dart:11:8 • unused_import
+   info • The library prefix '_configService' starts with an underscore • lib/controllers/HomeController.dart:11:38 • no_leading_underscores_for_library_prefixes
+   info • The prefix '_configService' isn't a lower_case_with_underscores identifier • lib/controllers/HomeController.dart:11:38 • library_prefixes
+warning • Unused import: 'ImagePrecacheService.dart' • lib/controllers/HomeController.dart:15:8 • unused_import
+   info • Uses 'await' on an instance of 'List<Prompt>', which is not a subtype of 'Future' • lib/controllers/HomeController.dart:37:20 • await_only_futures
+   info • The file name 'ImagePrecacheService.dart' isn't a lower_case_with_underscores identifier • lib/controllers/ImagePrecacheService.dart:1:1 • file_names
+warning • Unused import: 'network_controller.dart' • lib/controllers/app_bindings.dart:4:8 • unused_import
+   info • Constructors in '@immutable' classes should be declared as 'const' • lib/error/failures.dart:10:3 • prefer_const_constructors_in_immutables
+   info • Constructors in '@immutable' classes should be declared as 'const' • lib/error/failures.dart:11:3 • prefer_const_constructors_in_immutables
+   info • Constructors in '@immutable' classes should be declared as 'const' • lib/error/failures.dart:12:3 • prefer_const_constructors_in_immutables
+   info • Constructors in '@immutable' classes should be declared as 'const' • lib/error/failures.dart:13:3 • prefer_const_constructors_in_immutables
+   info • Constructors in '@immutable' classes should be declared as 'const' • lib/error/failures.dart:14:3 • prefer_const_constructors_in_immutables
+  error • Target of URI doesn't exist: '../theme/app_theme.dart' • lib/image_and_text/presentation/pages/creation_card.dart:4:8 • uri_does_not_exist
+   info • Parameter 'key' could be a super parameter • lib/image_and_text/presentation/pages/creation_card.dart:12:9 • use_super_parameters
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/image_and_text/presentation/pages/creation_card.dart:31:35 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/image_and_text/presentation/pages/creation_card.dart:66:56 • deprecated_member_use
+   info • Parameter 'key' could be a super parameter • lib/image_and_text/presentation/pages/image_and_text_page.dart:12:9 • use_super_parameters
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/image_and_text/presentation/pages/image_and_text_page.dart:117:41 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/image_and_text/presentation/pages/image_and_text_page.dart:128:25 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/image_and_text/presentation/pages/image_and_text_page.dart:160:39 • deprecated_member_use
+   info • The imported package 'get_it' isn't a dependency of the importing package • lib/injection.dart:1:8 • depend_on_referenced_packages
+  error • The function 'configureDependencies' isn't defined • lib/main.dart:20:3 • undefined_function
+warning • Unused import: 'dart:io' • lib/network/api_client.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/foundation.dart' • lib/network/api_client.dart:3:8 • unused_import
+  error • Target of URI doesn't exist: '../../../../core/theme/app_theme.dart' • lib/pages/image_preview_page.dart:4:8 • uri_does_not_exist
+   info • Parameter 'key' could be a super parameter • lib/pages/image_preview_page.dart:9:9 • use_super_parameters
+  error • Undefined name 'AppTheme' • lib/pages/image_preview_page.dart:14:24 • undefined_identifier
+  error • Invalid constant value • lib/pages/image_preview_page.dart:19:48 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/image_preview_page.dart:19:48 • undefined_identifier
+  error • Invalid constant value • lib/pages/image_preview_page.dart:38:61 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/image_preview_page.dart:38:61 • undefined_identifier
+  error • Invalid constant value • lib/pages/image_preview_page.dart:42:49 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/image_preview_page.dart:42:49 • undefined_identifier
+  error • Target of URI doesn't exist: '../../../../core/widgets/creation_card.dart' • lib/pages/my_creations_page.dart:3:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/widgets/app_bottom_nav.dart' • lib/pages/my_creations_page.dart:4:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/widgets/primary_button.dart' • lib/pages/my_creations_page.dart:5:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/data/creations_store.dart' • lib/pages/my_creations_page.dart:6:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/theme/app_theme.dart' • lib/pages/my_creations_page.dart:7:8 • uri_does_not_exist
+   info • Parameter 'key' could be a super parameter • lib/pages/my_creations_page.dart:13:9 • use_super_parameters
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:21:24 • undefined_identifier
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:34:30 • undefined_identifier
+  error • Invalid constant value • lib/pages/my_creations_page.dart:41:30 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:41:30 • undefined_identifier
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:68:24 • undefined_identifier
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:70:43 • undefined_identifier
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/pages/my_creations_page.dart:73:41 • deprecated_member_use
+  error • Invalid constant value • lib/pages/my_creations_page.dart:82:24 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:82:24 • undefined_identifier
+  error • Invalid constant value • lib/pages/my_creations_page.dart:91:24 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:91:24 • undefined_identifier
+  error • Invalid constant value • lib/pages/my_creations_page.dart:100:24 • invalid_constant
+  error • Undefined name 'AppTheme' • lib/pages/my_creations_page.dart:100:24 • undefined_identifier
+  error • The method 'PrimaryButton' isn't defined for the type 'MyCreationsPage' • lib/pages/my_creations_page.dart:104:13 • undefined_method
+  error • The method 'CreationCard' isn't defined for the type 'MyCreationsPage' • lib/pages/my_creations_page.dart:130:16 • undefined_method
+warning • Unused import: 'package:flutter/foundation.dart' • lib/providers/app_state.dart:1:8 • unused_import
+warning • Duplicate import • lib/providers/app_state.dart:5:8 • duplicate_import
+   info • The file name 'LanguageScreen.dart' isn't a lower_case_with_underscores identifier • lib/screens/common_screen/LanguageScreen.dart:1:1 • file_names
+   info • The file name 'PIX_setting_screen.dart' isn't a lower_case_with_underscores identifier • lib/screens/common_screen/PIX_setting_screen.dart:1:1 • file_names
+   info • The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/screens/common_screen/PIX_setting_screen.dart:2:8 • unnecessary_import
+   info • The import of 'package:flutter/widgets.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/screens/common_screen/PIX_setting_screen.dart:3:8 • unnecessary_import
+warning • Unused import: '../../utils/AppTheme.dart' • lib/screens/common_screen/PIX_setting_screen.dart:18:8 • unused_import
+   info • 'WillPopScope' is deprecated and shouldn't be used. Use PopScope instead. The Android predictive back feature will not work with WillPopScope. This feature was deprecated after v3.12.0-1.0.pre • lib/screens/common_screen/PIX_setting_screen.dart:58:13 • deprecated_member_use
+   info • String literals shouldn't be concatenated by the '+' operator • lib/screens/common_screen/PIX_setting_screen.dart:74:32 • prefer_adjacent_string_concatenation
+   info • Don't use 'BuildContext's across async gaps • lib/screens/common_screen/PIX_setting_screen.dart:98:55 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps • lib/screens/common_screen/PIX_setting_screen.dart:100:63 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps • lib/screens/common_screen/PIX_setting_screen.dart:128:57 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps • lib/screens/common_screen/PIX_setting_screen.dart:134:63 • use_build_context_synchronously
+   info • The imported package 'webview_flutter' isn't a dependency of the importing package • lib/screens/common_screen/privacy_policy.dart:3:8 • depend_on_referenced_packages
+   info • Parameter 'key' could be a super parameter • lib/screens/common_screen/privacy_policy.dart:9:9 • use_super_parameters
+   info • The imported package 'webview_flutter' isn't a dependency of the importing package • lib/screens/common_screen/terms_screen.dart:3:8 • depend_on_referenced_packages
+   info • Parameter 'key' could be a super parameter • lib/screens/common_screen/terms_screen.dart:9:9 • use_super_parameters
+warning • Unused import: 'package:promptly/services/constant.dart' • lib/screens/detail_screen.dart:7:8 • unused_import
+warning • Unused import: 'package:provider/provider.dart' • lib/screens/detail_screen.dart:8:8 • unused_import
+warning • The '!' will have no effect because the receiver can't be null • lib/screens/detail_screen.dart:51:46 • unnecessary_non_null_assertion
+warning • The declaration '_placeholder' isn't referenced • lib/screens/detail_screen.dart:208:10 • unused_element
+   info • Use 'const' with the constructor to improve performance • lib/screens/detail_screen.dart:220:14 • prefer_const_constructors
+   info • 'Share' is deprecated and shouldn't be used. Use SharePlus instead • lib/screens/detail_screen.dart:240:5 • deprecated_member_use
+   info • 'share' is deprecated and shouldn't be used. Use SharePlus.instance.share() instead • lib/screens/detail_screen.dart:240:11 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/detail_screen.dart:272:44 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/detail_screen.dart:276:42 • deprecated_member_use
+warning • Unused import: 'dart:math' • lib/screens/home_screen.dart:1:8 • unused_import
+warning • Unused import: 'package:provider/provider.dart' • lib/screens/home_screen.dart:15:8 • unused_import
+warning • Unused import: '../data/prompt_data.dart' • lib/screens/home_screen.dart:19:8 • unused_import
+warning • Unused import: 'detail_screen.dart' • lib/screens/home_screen.dart:25:8 • unused_import
+   info • Constructors for public widgets should have a named 'key' parameter • lib/screens/home_screen.dart:27:7 • use_key_in_widget_constructors
+warning • This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: HomeScreen.controllere • lib/screens/home_screen.dart:27:7 • must_be_immutable
+   info • Use 'const' with the constructor to improve performance • lib/screens/home_screen.dart:50:11 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/screens/home_screen.dart:55:28 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/screens/home_screen.dart:57:19 • prefer_const_constructors
+warning • The operand can't be 'null', so the condition is always 'true' • lib/screens/home_screen.dart:128:35 • unnecessary_null_comparison
+warning • Dead code • lib/screens/home_screen.dart:130:15 • dead_code
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/home_screen.dart:204:49 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/home_screen.dart:393:46 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/home_screen.dart:400:46 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/home_screen.dart:520:45 • deprecated_member_use
+   info • The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/screens/onboarding_screen.dart:1:8 • unnecessary_import
+   info • The import of 'package:flutter/widgets.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/screens/onboarding_screen.dart:4:8 • unnecessary_import
+warning • Unused import: 'package:google_mobile_ads/google_mobile_ads.dart' • lib/screens/onboarding_screen.dart:7:8 • unused_import
+warning • Unused import: 'package:promptly/utils/AppTheme.dart' • lib/screens/onboarding_screen.dart:10:8 • unused_import
+warning • Unused import: 'package:shared_preferences/shared_preferences.dart' • lib/screens/onboarding_screen.dart:11:8 • unused_import
+   info • The private field _appController could be 'final' • lib/screens/onboarding_screen.dart:40:17 • prefer_final_fields
+   info • Use 'const' with the constructor to improve performance • lib/screens/onboarding_screen.dart:103:19 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/screens/onboarding_screen.dart:109:32 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/onboarding_screen.dart:170:48 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/screens/onboarding_screen.dart:176:32 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/screens/onboarding_screen.dart:214:33 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/onboarding_screen.dart:217:47 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/screens/onboarding_screen.dart:225:43 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/screens/onboarding_screen.dart:259:19 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/onboarding_screen.dart:276:55 • deprecated_member_use
+warning • The value of the field 'darkBg' isn't used • lib/screens/onboarding_screen.dart:356:22 • unused_field
+warning • The declaration '_progressBar' isn't referenced • lib/screens/onboarding_screen.dart:357:10 • unused_element
+warning • This class (or a class that this class inherits from) is marked as '@immutable', but one or more of its instance fields aren't final: OnboardingPage.height, OnboardingPage.width • lib/screens/onboarding_screen.dart:373:7 • must_be_immutable
+   info • An uninitialized field should have an explicit type annotation • lib/screens/onboarding_screen.dart:376:7 • prefer_typing_uninitialized_variables
+   info • An uninitialized field should have an explicit type annotation • lib/screens/onboarding_screen.dart:377:7 • prefer_typing_uninitialized_variables
+warning • The receiver can't be null, so the null-aware operator '?.' is unnecessary • lib/screens/onboarding_screen.dart:388:22 • invalid_null_aware_operator
+   info • The import of 'package:get/get_core/src/get_main.dart' is unnecessary because all of the used elements are also provided by the import of 'package:get/get.dart' • lib/screens/splash_screen.dart:6:8 • unnecessary_import
+   info • The import of 'package:get/get_instance/src/extension_instance.dart' is unnecessary because all of the used elements are also provided by the import of 'package:get/get.dart' • lib/screens/splash_screen.dart:7:8 • unnecessary_import
+warning • Unused import: 'package:provider/provider.dart' • lib/screens/splash_screen.dart:9:8 • unused_import
+   info • Use 'const' with the constructor to improve performance • lib/screens/splash_screen.dart:56:13 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/splash_screen.dart:88:41 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/screens/splash_screen.dart:99:41 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/screens/splash_screen.dart:104:1 • prefer_const_constructors
+   info • The file name 'ShimmerLoader.dart' isn't a lower_case_with_underscores identifier • lib/services/ShimmerLoader.dart:1:1 • file_names
+   info • The type of the right operand ('ConnectivityResult') isn't a subtype or a supertype of the left operand ('List<ConnectivityResult>') • lib/services/checkConnectivity.dart:8:31 • unrelated_type_equality_checks
+   info • Use 'const' with the constructor to improve performance • lib/services/costom_tab_view.dart:121:29 • prefer_const_constructors
+   info • Don't invoke 'print' in production code • lib/services/creations_storage.dart:16:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/creations_storage.dart:23:5 • avoid_print
+   info • Use 'const' with the constructor to improve performance • lib/services/dialog.dart:26:22 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/services/dialog.dart:26:50 • prefer_const_constructors
+   info • Don't invoke 'print' in production code • lib/services/dialog.dart:28:17 • avoid_print
+   info • 'dialogBackgroundColor' is deprecated and shouldn't be used. Use DialogThemeData.backgroundColor instead. This feature was deprecated after v3.27.0-0.1.pre • lib/services/dialog.dart:97:15 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance • lib/services/dialog.dart:117:20 • prefer_const_constructors
+   info • The file name 'RemoteConfigService.dart' isn't a lower_case_with_underscores identifier • lib/services/firebase_configuration/RemoteConfigService.dart:1:1 • file_names
+warning • Unused import: 'firebase_options.dart' • lib/services/firebase_configuration/RemoteConfigService.dart:11:8 • unused_import
+warning • Unused import: 'dart:convert' • lib/services/firebase_configuration/firebase.dart:1:8 • unused_import
+warning • Unused import: 'package:cached_network_image/cached_network_image.dart' • lib/services/firebase_configuration/firebase.dart:2:8 • unused_import
+warning • Unused import: 'package:firebase_core/firebase_core.dart' • lib/services/firebase_configuration/firebase.dart:3:8 • unused_import
+warning • Unused import: 'package:firebase_crashlytics/firebase_crashlytics.dart' • lib/services/firebase_configuration/firebase.dart:4:8 • unused_import
+warning • Unused import: 'package:firebase_remote_config/firebase_remote_config.dart' • lib/services/firebase_configuration/firebase.dart:5:8 • unused_import
+warning • Unused import: 'package:flutter/cupertino.dart' • lib/services/firebase_configuration/firebase.dart:6:8 • unused_import
+warning • Unused import: 'package:flutter/foundation.dart' • lib/services/firebase_configuration/firebase.dart:7:8 • unused_import
+warning • Unused import: 'package:flutter/services.dart' • lib/services/firebase_configuration/firebase.dart:8:8 • unused_import
+warning • Unused import: 'package:get/get.dart' • lib/services/firebase_configuration/firebase.dart:9:8 • unused_import
+warning • Unused import: 'package:promptly/controllers/HomeController.dart' • lib/services/firebase_configuration/firebase.dart:10:8 • unused_import
+warning • Unused import: '../../data/prompt_model.dart' • lib/services/firebase_configuration/firebase.dart:11:8 • unused_import
+warning • Unused import: '../google_ads_material/ads_variable.dart' • lib/services/firebase_configuration/firebase.dart:12:8 • unused_import
+warning • Unused import: 'firebase_options.dart' • lib/services/firebase_configuration/firebase.dart:13:8 • unused_import
+   info • Don't invoke 'print' in production code • lib/services/firebase_configuration/firebase_event.dart:15:7 • avoid_print
+   info • The file name 'InterstitialAdUtil.dart' isn't a lower_case_with_underscores identifier • lib/services/google_ads_material/InterstitialAdUtil.dart:1:1 • file_names
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:38:15 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:44:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:75:11 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:82:11 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:110:17 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:135:27 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:141:25 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:147:19 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/InterstitialAdUtil.dart:154:11 • avoid_print
+warning • Unused import: 'package:get/get.dart' • lib/services/google_ads_material/ads_variable.dart:1:8 • unused_import
+   info • The variable name 'mishy_ai_token' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:8:17 • non_constant_identifier_names
+   info • The variable name 'in_app_screen_ad_continue_ads_online' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:14:17 • non_constant_identifier_names
+   info • The variable name 'credit_screen_ad_continue_ads_online' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:17:17 • non_constant_identifier_names
+   info • The variable name 'home_screen_ad_continue_ads_online' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:20:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_on_in_splash_screen' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:24:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_preload_high_adsId' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:27:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_preload_normal_adsId' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:28:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_splash_adsId_high' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:29:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_splash_adsId_normal' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:30:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_in_app_adsId' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:31:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_credit_adsId' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:32:17 • non_constant_identifier_names
+   info • The variable name 'fullscreen_home' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:33:17 • non_constant_identifier_names
+   info • The variable name 'native_intro_big' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:35:17 • non_constant_identifier_names
+   info • The variable name 'native_home_small' isn't a lowerCamelCase identifier • lib/services/google_ads_material/ads_variable.dart:36:17 • non_constant_identifier_names
+   info • The import of 'package:flutter/material.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/cupertino.dart' • lib/services/google_ads_material/banner_widget.dart:2:8 • unnecessary_import
+   info • Don't use 'BuildContext's across async gaps • lib/services/google_ads_material/banner_widget.dart:44:30 • use_build_context_synchronously
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/banner_widget.dart:54:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/banner_widget.dart:64:13 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/banner_widget.dart:68:15 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/banner_widget.dart:76:13 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/banner_widget.dart:85:7 • avoid_print
+   info • The file name 'nativeAdService.dart' isn't a lower_case_with_underscores identifier • lib/services/google_ads_material/nativeAdService.dart:1:1 • file_names
+   info • Unnecessary override • lib/services/google_ads_material/nativeAdService.dart:14:8 • unnecessary_overrides
+warning • The receiver can't be null, so the null-aware operator '?.' is unnecessary • lib/services/google_ads_material/nativeAdService.dart:55:21 • invalid_null_aware_operator
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/nativeAdService.dart:56:13 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/google_ads_material/nativeAdService.dart:65:7 • avoid_print
+   info • Use 'const' with the constructor to improve performance • lib/services/google_ads_material/native_ad_widget.dart:28:26 • prefer_const_constructors
+   info • Constructors for public widgets should have a named 'key' parameter • lib/services/google_ads_material/shimmer.dart:134:7 • use_key_in_widget_constructors
+   info • Constructors for public widgets should have a named 'key' parameter • lib/services/press_unpress.dart:16:9 • use_key_in_widget_constructors
+   info • Invalid use of a private type in a public API • lib/services/press_unpress.dart:30:3 • library_private_types_in_public_api
+   info • Invalid use of a private type in a public API • lib/services/press_unpress.dart:95:3 • library_private_types_in_public_api
+   info • The file name 'submitRating.dart' isn't a lower_case_with_underscores identifier • lib/services/submitRating.dart:1:1 • file_names
+   info • The imported package 'package_info_plus' isn't a dependency of the importing package • lib/services/submitRating.dart:4:8 • depend_on_referenced_packages
+warning • Unused import: 'constant.dart' • lib/services/submitRating.dart:8:8 • unused_import
+   info • The imported package 'url_launcher' isn't a dependency of the importing package • lib/services/submitRating.dart:12:8 • depend_on_referenced_packages
+   info • Don't use 'BuildContext's across async gaps • lib/services/submitRating.dart:36:47 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps • lib/services/submitRating.dart:63:18 • use_build_context_synchronously
+   info • 'Share' is deprecated and shouldn't be used. Use SharePlus instead • lib/services/submitRating.dart:64:7 • deprecated_member_use
+   info • 'share' is deprecated and shouldn't be used. Use SharePlus.instance.share() instead • lib/services/submitRating.dart:64:13 • deprecated_member_use
+   info • Don't use 'BuildContext's across async gaps • lib/services/submitRating.dart:65:25 • use_build_context_synchronously
+   info • 'Share' is deprecated and shouldn't be used. Use SharePlus instead • lib/services/submitRating.dart:66:7 • deprecated_member_use
+   info • 'share' is deprecated and shouldn't be used. Use SharePlus.instance.share() instead • lib/services/submitRating.dart:66:13 • deprecated_member_use
+   info • The file name 'AppRoutes.dart' isn't a lower_case_with_underscores identifier • lib/utils/AppRoutes.dart:1:1 • file_names
+   info • The file name 'AppTheme.dart' isn't a lower_case_with_underscores identifier • lib/utils/AppTheme.dart:1:1 • file_names
+   info • The import of 'dart:ui' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' • lib/utils/AppTheme.dart:1:8 • unnecessary_import
+   info • The imported package 'http' isn't a dependency of the importing package • lib/utils/auth_repository.dart:4:8 • depend_on_referenced_packages
+   info • Don't invoke 'print' in production code • lib/utils/auth_repository.dart:46:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/auth_repository.dart:48:9 • avoid_print
+   info • Don't invoke 'print' in production code • lib/utils/auth_repository.dart:53:7 • avoid_print
+   info • The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/foundation.dart' • lib/utils/image_compressor.dart:2:8 • unnecessary_import
+   info • The imported package 'path_provider' isn't a dependency of the importing package • lib/utils/image_compressor.dart:5:8 • depend_on_referenced_packages
+

@@ -1,5 +1,4 @@
 import 'prompt_model.dart';
-
 final List<Map<String, dynamic>> initialPromptData = [
   {
     "id": "1",
