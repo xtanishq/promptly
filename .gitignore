@@ -50,8 +50,6 @@ app.*.map.json
 **/android/key.properties
 
 # If you use Google Services (Firebase)
-**/android/app/google-services.json
-**/ios/Runner/GoogleService-Info.plist
 
 upload-keystore.jks
 android/app/keystore_base64.txt
