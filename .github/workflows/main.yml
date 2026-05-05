@@ -36,7 +36,7 @@ jobs:
           cache: true
 
       - name: Build Release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --split-per-abi --no-tree-shake-icons
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
