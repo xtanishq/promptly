@@ -43,9 +43,11 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
-          bundler-cache: true
-          working-directory: android
+          ruby-version: 3.2
+
+      - name: Install Bundler
+        run: gem install bundler
+
       - name: Install Gems
         working-directory: android
         run: bundle install
