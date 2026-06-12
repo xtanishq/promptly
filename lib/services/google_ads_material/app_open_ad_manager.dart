@@ -8,9 +8,10 @@ class AppOpenAdManager {
   static bool dismissed = false;
   static bool shouldShowAd = true;
 
-
    void loadAd() {
-     if(AdsVariable.appopen == "11"){
+     if (!AdsVariable.ads_enabled ||
+         AdsVariable.isPurchase.value ||
+         AdsVariable.appopen == "11") {
        return;
      }
     AppOpenAd.load(
@@ -36,7 +37,9 @@ class AppOpenAdManager {
   }
 
    void showAdIfAvailable() {
-    if (!shouldShowAd) {
+    if (!shouldShowAd ||
+        !AdsVariable.ads_enabled ||
+        AdsVariable.isPurchase.value) {
       return;
     }
     if (appOpenAd == null) {

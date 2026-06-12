@@ -5,7 +5,13 @@ import 'package:flutter/foundation.dart';
 import '../../../utils/auth_repository.dart';
 
 class ImageAndTextRepository {
-  final Dio _dio = Dio();
+  final Dio _dio = Dio(
+    BaseOptions(
+      connectTimeout: const Duration(seconds: 20),
+      sendTimeout: const Duration(minutes: 2),
+      receiveTimeout: const Duration(minutes: 2),
+    ),
+  );
 
   Future<Either<String, String>> generateImage(File imageFile, String prompt) async {
     try {
@@ -71,4 +77,3 @@ class ImageAndTextRepository {
     }
   }
 }
-

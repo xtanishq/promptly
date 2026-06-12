@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:uuid/uuid.dart';
 import '../services/storage_service.dart';
 import 'package:get/get.dart';
-import 'package:uuid/uuid.dart';
 // Import your storage service here
 
 class AppController extends GetxController {
@@ -34,11 +31,7 @@ class AppController extends GetxController {
     _isOnboardingComplete.value = await _storage.isOnboardingComplete();
 
     // 2. User ID logic
-    String? id = await _storage.getUserId();
-    if (id == null) {
-      id = const Uuid().v4();
-      await _storage.setUserId(id);
-    }
+    final id = await _storage.getOrCreateUserId();
     _userId.value = id;
 
     // 3. Load & Validate streak

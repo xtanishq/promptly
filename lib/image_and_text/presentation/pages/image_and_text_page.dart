@@ -1,10 +1,18 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart' show Either;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:promptly/in_app_purchase/constant.dart';
+import 'package:promptly/in_app_purchase/purchase_controller.dart';
+import 'package:promptly/in_app_purchase/screens/credit_screen.dart';
+import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show UpsellScreen;
+import '../../../services/google_ads_material/ads_variable.dart';
 import '../../data/repositories/image_and_text_repository.dart';
 import '../../../services/creations_storage.dart';
 import '../../../pages/image_preview_page.dart';
+import 'generation_loading_page.dart';
 
 class ImageAndTextPage extends StatefulWidget {
   final String? initialPrompt;
@@ -22,6 +30,7 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
   
   File? _selectedImage;
   bool _isLoading = false;
+  bool _isSubmitting = false;
 
   @override
   void initState() {
@@ -40,39 +49,117 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
     }
   }
 
-  void _generateImage() async {
+  void _generateImage() {
+    if (_isSubmitting) return;
+
     final prompt = _promptController.text.trim();
     if (prompt.isEmpty) {
-      Get.snackbar('Error', 'Please enter a prompt first.', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Error', 'Please enter a prompt first.',
+          snackPosition: SnackPosition.BOTTOM);
       return;
     }
-    
+
     if (_selectedImage == null) {
-      Get.snackbar('Error', 'Please select an image first.', snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Error', 'Please select an image first.',
+          snackPosition: SnackPosition.BOTTOM);
       return;
     }
+
+    // ── Gate: must be subscribed ────────────────────────────────────────────
+    if (!AdsVariable.isPurchase.value) {
+      Get.to(
+        () => const UpsellScreen(item: true),
+        transition: Transition.downToUp,
+        duration: const Duration(milliseconds: 350),
+      );
+      return;
+    }
+
+    // ── Gate: must have enough credits ──────────────────────────────────────
+    final purchaseCtrl = Get.find<PurchaseController>();
+    if (!purchaseCtrl.hasEnoughCredits(generateImageCost)) {
+      Get.snackbar(
+        'Not Enough Credits ⚡',
+        'You need at least $generateImageCost credits to generate. Buy more!',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: const Color(0xFF1E1E1E),
+        colorText: Colors.orange,
+        duration: const Duration(seconds: 3),
+      );
+      Get.to(
+        () => const CreditScreen(),
+        transition: Transition.downToUp,
+        duration: const Duration(milliseconds: 350),
+      );
+      return;
+    }
+
+    // ── All gates passed → deduct credits & generate ─────────────────────
+    unawaited(_deductAndGenerate(purchaseCtrl));
+  }
+
+  Future<void> _deductAndGenerate(PurchaseController purchaseCtrl) async {
+    // Deduct 5 credits first
+    final deducted = await purchaseCtrl.cutCredit(generateImageCost);
+    if (!deducted) return; // race condition guard
+    unawaited(_startGenerationFlow());
+  }
+
+  Future<void> _startGenerationFlow() async {
+    final prompt = _promptController.text.trim();
+    final imageFile = _selectedImage;
+    if (imageFile == null) return;
 
     setState(() {
       _isLoading = true;
+      _isSubmitting = true;
     });
 
-    final result = await _repository.generateImage(_selectedImage!, prompt);
+    final generationFuture = _repository.generateImage(imageFile, prompt);
+    Either<String, String>? completedResult;
 
-    if (!mounted) return;
+    unawaited(
+      generationFuture.then((result) {
+        completedResult = result;
+      }),
+    );
 
     setState(() {
       _isLoading = false;
+      _isSubmitting = false;
     });
 
-    result.fold(
-      (error) {
-        Get.snackbar('Error', error, snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red, colorText: Colors.white);
+    final immediateResult = completedResult;
+    if (immediateResult != null) {
+      await _handleGenerationResult(immediateResult);
+      return;
+    }
+
+    Get.to(
+      () => GenerationLoadingPage(generationFuture: generationFuture),
+    );
+  }
+
+  Future<void> _handleGenerationResult(Either<String, String> result) async {
+    await result.fold(
+      (error) async {
+        Get.snackbar(
+          'Error',
+          error,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
       },
       (imageUrl) async {
-        // Save the image
         await CreationsStorage.saveCreation(imageUrl);
-        Get.snackbar('Success', 'Image generated successfully! ✨', snackPosition: SnackPosition.BOTTOM, backgroundColor: const Color(0xFF1E1E1E), colorText: const Color(0xFFCCFF00));
-        // Redirect to Preview Screen
+        Get.snackbar(
+          'Success',
+          'Image generated successfully! ✨',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF1E1E1E),
+          colorText: const Color(0xFFCCFF00),
+        );
         Get.off(() => ImagePreviewPage(imageUrl: imageUrl));
       },
     );

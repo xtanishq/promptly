@@ -14,7 +14,9 @@ class AppLifecycleReactor {
 
   void _onAppStateChanged(AppState appState) {
     if (appState == AppState.foreground) {
-      if(AdsVariable.appopen != '11' ){
+      if (AdsVariable.ads_enabled &&
+          !AdsVariable.isPurchase.value &&
+          AdsVariable.appopen != '11') {
         appOpenAdManager.showAdIfAvailable();
       }
     }

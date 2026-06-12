@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,10 +10,11 @@ class InitializationHelper {
     final completer = Completer<FormError?>();
 
     final params = ConsentRequestParameters(
-      consentDebugSettings: ConsentDebugSettings(
-        debugGeography: DebugGeography.debugGeographyEea, // to simulate inside of the EEA
-        // debugGeography: DebugGeography.debugGeographyNotEea, // to simulate outside of the EEA
-      ),
+      consentDebugSettings: kDebugMode
+          ? ConsentDebugSettings(
+              debugGeography: DebugGeography.debugGeographyEea,
+            )
+          : null,
     );
     ConsentInformation.instance.requestConsentInfoUpdate(params, () async {
       if (await ConsentInformation.instance.isConsentFormAvailable()) {
@@ -38,12 +40,19 @@ class InitializationHelper {
       if (status == ConsentStatus.required) {
         SharedPreferences prefs = await constantPreference;
         prefs.setInt("keyvalue",1);
-        consentForm.show((formError) {
-          completer.complete(_loadConsentForm());
+        consentForm.show((formError) async {
+          if (formError != null) {
+            completer.complete(formError);
+            return;
+          }
+          await _initialize();
+          completer.complete();
         });
       } else {
         // The user has chosen an option,
         // it's time to initialize the ads component.
+        SharedPreferences prefs = await constantPreference;
+        prefs.setInt("keyvalue",0);
         await _initialize();
         completer.complete();
       }

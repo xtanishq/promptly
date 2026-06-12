@@ -5,6 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../constant.dart';
+import 'ads_variable.dart';
 // import '../in_app_purchase/purchase_controller.dart';
 // import '../service/constant.dart';
 
@@ -33,7 +34,9 @@ class _BannerWidgetState extends State<BannerWidget> {
   }
 
   Future<void> _loadAd() async {
-    if (widget.adsId == '11') {
+    if (!AdsVariable.ads_enabled ||
+        AdsVariable.isPurchase.value ||
+        widget.adsId == '11') {
       return;
     }
 
@@ -99,10 +102,12 @@ class _BannerWidgetState extends State<BannerWidget> {
       valueListenable: _isLoaded,
       builder: (BuildContext context, bool value, Widget? child) {
         return Obx(() {
-          return
-              widget.adsId == '11'?
-          const SizedBox.shrink()
-              : _buildAdWidget();
+          if (!AdsVariable.ads_enabled ||
+              AdsVariable.isPurchase.value ||
+              widget.adsId == '11') {
+            return const SizedBox.shrink();
+          }
+          return _buildAdWidget();
         });
       },
     );

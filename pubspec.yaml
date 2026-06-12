@@ -16,8 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.3+3
-
+version: 1.3.4+12
 
 environment:
   sdk: ^3.10.7
@@ -71,6 +70,15 @@ dependencies:
   go_router: ^17.2.3
   gal: ^2.3.2
   path_provider: ^2.1.5
+  flutter_native_splash: ^2.4.7
+  purchases_flutter: ^10.1.0
+  device_info_plus: ^11.5.0
+  flutter_secure_storage:
+  get_it: ^8.2.0
+  http: ^1.5.0
+  package_info_plus: ^8.3.1
+  url_launcher: ^6.3.2
+  webview_flutter: ^4.13.0
 
 
 
@@ -89,6 +97,22 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   # Senior touch: setting a background color to match the logo for Android
   adaptive_icon_background: "#121212"
+
+flutter_native_splash:
+  color: "#121212"
+  image: assets/onboarding/appicon.png
+  color_dark: "#121212"
+  image_dark: assets/onboarding/appicon.png
+  android_12:
+    image: assets/onboarding/appicon.png
+    icon_background_color: "#121212"
+    image_dark: assets/onboarding/appicon.png
+    icon_background_color_dark: "#121212"
+  # Keep the splash screen up until we manually remove it
+  android: true
+  ios: true
+  fullscreen: true
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -105,6 +129,7 @@ flutter:
   assets:
 
      - assets/onboarding/
+     - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

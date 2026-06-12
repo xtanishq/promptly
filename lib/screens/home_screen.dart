@@ -1,31 +1,82 @@
-import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get/get.dart';
+import 'package:promptly/in_app_purchase/purchase_controller.dart';
+import 'package:promptly/in_app_purchase/screens/credit_screen.dart';
+import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show UpsellScreen;
+import 'package:promptly/in_app_purchase/constant.dart';
 import 'package:promptly/screens/common_screen/PIX_setting_screen.dart';
 import 'package:promptly/services/constant.dart';
+import 'package:promptly/services/google_ads_material/ads_variable.dart';
+import 'package:promptly/services/ShimmerLoader.dart';
+import 'package:promptly/services/costom_tab_view.dart';
+import 'package:promptly/utils/AppRoutes.dart';
 import 'package:promptly/utils/AppTheme.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:shimmer/shimmer.dart';
 import '../controllers/HomeController.dart';
-import '../data/prompt_data.dart';
 import '../data/prompt_model.dart';
-import '../providers/app_state.dart';
-import '../services/ShimmerLoader.dart';
-import '../services/costom_tab_view.dart';
-import '../utils/AppRoutes.dart';
-import 'detail_screen.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  AppController controllere = Get.find();
+
+  // ── Navigation gate ─────────────────────────────────────────────────────────
+  /// Called when user taps any prompt card or daily discovery.
+  /// Logic:
+  ///   1. Not subscribed → show Subscription screen
+  ///   2. Subscribed but credits < lowCreditThreshold → show Credit screen
+  ///   3. Subscribed + enough credits → go to prompt detail
+  void _openPrompt(Prompt prompt) {
+    final purchaseCtrl = Get.find<PurchaseController>();
+
+    if (!AdsVariable.isPurchase.value) {
+      // Not subscribed → show paywall, then auto-navigate to detail on success
+      Get.to(
+        () => UpsellScreen(
+          item: true,
+          onSuccess: () => Get.toNamed(AppRoutes.detail, arguments: prompt),
+        ),
+        transition: Transition.downToUp,
+        duration: const Duration(milliseconds: 350),
+      );
+      return;
+    }
+
+    if (!purchaseCtrl.hasEnoughCredits(lowCreditThreshold)) {
+      // Low credits → show credit screen, then auto-navigate to detail on success
+      Get.to(
+        () => CreditScreen(
+          onSuccess: () => Get.toNamed(AppRoutes.detail, arguments: prompt),
+        ),
+        transition: Transition.downToUp,
+        duration: const Duration(milliseconds: 350),
+      );
+      return;
+    }
+
+    // All good → navigate directly
+    Get.toNamed(AppRoutes.detail, arguments: prompt);
+  }
+
+  // ── Open subscription screen directly ───────────────────────────────────────
+  void _openSubscriptionScreen() {
+    Get.to(
+      () => const UpsellScreen(item: false),
+      transition: Transition.downToUp,
+      duration: const Duration(milliseconds: 350),
+    );
+  }
+
+  // ── Open credit screen directly ─────────────────────────────────────────────
+  void _openCreditScreen() {
+    Get.to(
+      () => const CreditScreen(),
+      transition: Transition.downToUp,
+      duration: const Duration(milliseconds: 350),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +86,6 @@ class HomeScreen extends GetView<HomeController> {
       extendBodyBehindAppBar: true,
       backgroundColor: appBackgroundColor,
       appBar: AppBar(
-        // backgroundColor:Colors.white,
         forceMaterialTransparency: true,
         actions: [
           40.horizontalSpace,
@@ -47,28 +97,102 @@ class HomeScreen extends GetView<HomeController> {
               letterSpacing: 2,
             ),
           ),
-          Spacer(),
-          _buildStreakBadge(controllere),
+          const Spacer(),
+
+          // ── Credits badge (always visible, tappable to buy more) ──────────
+          Obx(() {
+            final credits = AdsVariable.credits.value;
+            return GestureDetector(
+              onTap: _openCreditScreen,
+              child: Container(
+                margin: EdgeInsets.only(right: 16.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1A1A1A),
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: credits < lowCreditThreshold
+                        ? Colors.orange
+                        : const Color(0xFFCCFF00),
+                    width: 1.5,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.bolt_rounded,
+                      color: credits < lowCreditThreshold
+                          ? Colors.orange
+                          : const Color(0xFFCCFF00),
+                      size: 36.sp,
+                    ),
+                    8.horizontalSpace,
+                    Text(
+                      '$credits',
+                      style: TextStyle(
+                        color: credits < lowCreditThreshold
+                            ? Colors.orange
+                            : Colors.white,
+                        fontSize: 36.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+
+          // ── PRO badge (only shows when NOT subscribed) ────────────────────
+          Obx(() {
+            if (AdsVariable.isPurchase.value) return const SizedBox.shrink();
+            return GestureDetector(
+              onTap: _openSubscriptionScreen,
+              child: Container(
+                margin: EdgeInsets.only(right: 12.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFFB066FE), Color(0xFF8A2BE2)],
+                  ),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.workspace_premium_rounded,
+                        color: const Color(0xFFCCFF00), size: 36.sp),
+                    8.horizontalSpace,
+                    Text(
+                      'PRO',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32.sp,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ).animate(onPlay: (c) => c.repeat())
+                  .shimmer(duration: 2000.ms, color: Colors.white24),
+            );
+          }),
+
+          20.horizontalSpace,
 
           IconButton(
-            onPressed: () {
-              Get.to(() => SettingScreen());
-            },
-            icon: Icon(Icons.settings),
+            onPressed: () => Get.to(() => const SettingScreen()),
+            icon: const Icon(Icons.settings),
           ),
-          35.horizontalSpace,
+          15.horizontalSpace,
         ],
       ),
       body: SafeArea(
         child: Obx(() {
-          // return _mainview(theme);
           if (controller.isLoading.value) return const ShimmerLoader();
-
-          // If even after fallback, there is no data (or you want to force internet)
-          if (controller.prompts.isEmpty) {
-            return _buildNoInternetView();
-          }
-
+          if (controller.prompts.isEmpty) return _buildNoInternetView();
           return _mainview(theme);
         }),
       ),
@@ -81,6 +205,8 @@ class HomeScreen extends GetView<HomeController> {
       ),
     );
   }
+
+  // ── Sub-widgets ─────────────────────────────────────────────────────────────
 
   Widget _buildNoInternetView() {
     return Center(
@@ -107,10 +233,7 @@ class HomeScreen extends GetView<HomeController> {
       child: Obx(
         () => PageView.builder(
           controller: PageController(viewportFraction: 1.01),
-          // अगले कार्ड की झलक के लिए
           itemCount: controller.premiumPrompts.length,
-
-          //
           physics: const PageScrollPhysics(),
           itemBuilder: (context, index) {
             final prompt = controller.premiumPrompts[index];
@@ -125,84 +248,21 @@ class HomeScreen extends GetView<HomeController> {
     return Column(
       children: [
         20.verticalSpace,
-        controller.dailyDiscovery != null
+        controller.premiumPrompts.isNotEmpty
             ? _buildPremiumSlider()
             : const SizedBox.shrink(),
-        // 50.verticalSpace,
-        // SizedBox(
-        //   height: 140.h,
-        //   // The only Obx you need. It watches both 'categories' list
-        //   // and 'selectedCategory' value.
-        //   child: Obx(() {
-        //     // Senior Tip: Access the value at the very top of Obx to
-        //     // explicitly tell GetX to track this variable for the entire block.
-        //     final selectedCat = controller.selectedCategory.value;
-        //
-        //     return ListView.builder(
-        //       scrollDirection: Axis.horizontal,
-        //       padding: const EdgeInsets.symmetric(horizontal: 16),
-        //       itemCount: controller.categories.length,
-        //       itemBuilder: (context, index) {
-        //         final category = controller.categories[index];
-        //         final isSelected = category == selectedCat;
-        //
-        //         return GestureDetector(
-        //           onTap: () {
-        //             // Logic should stay in the controller
-        //             controller.onCategorySelected(category);
-        //           },
-        //           child: AnimatedContainer(
-        //             duration: const Duration(milliseconds: 250),
-        //             curve: Curves.easeInOut,
-        //             // Added curve for smoother feel
-        //             margin: const EdgeInsets.only(right: 12),
-        //             padding: const EdgeInsets.symmetric(
-        //               horizontal: 16,
-        //               vertical: 8,
-        //             ),
-        //             alignment: Alignment.center,
-        //             decoration: BoxDecoration(
-        //               // Use the locally stored isSelected
-        //               color: isSelected
-        //                   ? Theme.of(context).colorScheme.primary
-        //                   : Colors.white.withValues(alpha: 0.1),
-        //               borderRadius: BorderRadius.circular(20),
-        //               border: Border.all(
-        //                 color: isSelected ? Colors.transparent : Colors.white24,
-        //               ),
-        //             ),
-        //             child: Text(
-        //               category,
-        //               style: TextStyle(
-        //                 color: isSelected ? Colors.white : Colors.white70,
-        //                 fontWeight: isSelected
-        //                     ? FontWeight.bold
-        //                     : FontWeight.normal,
-        //                 fontSize: 13,
-        //               ),
-        //             ),
-        //           ),
-        //         );
-        //       },
-        //     );
-        //   }),
-        // ),
         50.verticalSpace,
-        // Inside your build method or where you display the content
         Expanded(
           child: Obx(() {
-            // 1. Safety check for loading state
             if (controller.isLoading.value) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            return
-              CustomTabView(
+            return CustomTabView(
               itemCount: controller.categories.length,
               selecttabcolor: AppTheme.darkTheme.colorScheme.secondary,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.grey.withOpacity(0.99),
-              // 2. Build the Tab Headers
               tabBuilder: (context, index) {
                 return Tab(
                   height: 140.h,
@@ -218,11 +278,8 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                 );
               },
-              // 3. Build the Pages (The Grids)
               pageBuilder: (context, index) {
                 final category = controller.categories[index];
-
-                // Filter prompts for this specific tab's category
                 final List<Prompt> categorySpecificPrompts = category == 'All'
                     ? controller.prompts
                     : controller.prompts
@@ -242,7 +299,6 @@ class HomeScreen extends GetView<HomeController> {
                         crossAxisCount: 2,
                       ),
                   itemBuilder: (context, pIndex) {
-                    // Using your existing _buildPromptCard method
                     return _buildPromptCard(
                       categorySpecificPrompts[pIndex],
                       pIndex,
@@ -250,8 +306,6 @@ class HomeScreen extends GetView<HomeController> {
                   },
                 );
               },
-
-              // 4. Sync the Swipe/Click back to GetX controller
               onPositionChange: (index) {
                 final category = controller.categories[index];
                 controller.onCategorySelected(category);
@@ -263,139 +317,22 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 
-  Widget _buildStreakBadge(AppController state) {
-    return GestureDetector(
-      onTap: () => _showStreakDetails(state), // The action trigger
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: state.streakCount > 0
-              ? const Color(0xFFCCFF00).withValues(alpha: 0.1)
-              : Colors.white.withValues(alpha: 0.05),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: state.streakCount > 0
-                ? const Color(0xFFCCFF00).withValues(alpha: 0.5)
-                : Colors.white10,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.local_fire_department,
-              size: 16,
-              color: state.streakCount > 0
-                  ? const Color(0xFFCCFF00)
-                  : Colors.grey,
-            ),
-            const SizedBox(width: 4),
-            Obx(
-              () => Text(
-                "${state.streakCount}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'JetBrainsMono', // Technical vibe
-                  color: state.streakCount > 0
-                      ? const Color(0xFFCCFF00)
-                      : Colors.grey,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showStreakDetails(AppController state) {
-    Get.bottomSheet(
-      Container(
-        padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-          color: Color(0xFF1E1E1E), // Surface color
-          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // 1. The Big Visual Reward
-            const Icon(
-                  Icons.local_fire_department,
-                  size: 80,
-                  color: Color(0xFFCCFF00),
-                )
-                .animate()
-                .scale(duration: 600.ms, curve: Curves.elasticOut)
-                .shimmer(color: Colors.white),
-
-            const SizedBox(height: 16),
-
-            Text(
-              "${state.streakCount} Day Streak!",
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 8),
-
-            const Text(
-              "You're on fire! Copy a prompt every day to keep the streak alive.",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white70),
-            ),
-
-            const SizedBox(height: 32),
-
-            // 2. The Action Button
-            SizedBox(
-              width: double.infinity,
-              height: 56,
-              child: ElevatedButton(
-                onPressed: () => Get.back(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFCCFF00),
-                  foregroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: const Text(
-                  "KEEP IT UP",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-    );
-  }
-
   Widget _buildDailyDiscovery(Prompt prompt) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.detail, arguments: prompt),
+      onTap: () => _openPrompt(prompt),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 50.w),
         height: 650.h,
         width: 1100.w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: const Color(0xFFCCFF00), // clean neon edge
-            width: 1.2,
-          ),
+          border: Border.all(color: const Color(0xFFCCFF00), width: 1.2),
           boxShadow: [
-            // Inner soft aura
             BoxShadow(
               color: const Color(0xFFCCFF00).withOpacity(0.28),
               blurRadius: 4,
               spreadRadius: 0,
             ),
-
-            // Outer diffused glow
             BoxShadow(
               color: const Color(0xFFCCFF00).withOpacity(0.14),
               blurRadius: 4,
@@ -403,17 +340,13 @@ class HomeScreen extends GetView<HomeController> {
             ),
           ],
         ),
-
-        // Use ClipRRect to ensure the image and placeholder obey the border radius
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
             children: [
-              // 2. The Cached Image Widget
               CachedNetworkImage(
                 imageUrl: prompt.imageUrl,
                 fit: BoxFit.cover,
-                // Changed from contain to cover to fill the 650.h height better
                 width: double.infinity,
                 height: double.infinity,
                 maxHeightDiskCache: 500,
@@ -427,8 +360,6 @@ class HomeScreen extends GetView<HomeController> {
                   child: const Icon(Icons.error, color: Colors.red),
                 ),
               ),
-
-              // 3. The Gradient Overlay
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -436,38 +367,28 @@ class HomeScreen extends GetView<HomeController> {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withValues(alpha: 0.8),
+                      Colors.black.withOpacity(0.8),
                     ],
                   ),
                 ),
               ),
-
-              // 4. The Text Content
               Positioned(
                 bottom: 16,
                 left: 16,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppTheme.darkTheme.primaryColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Text(
-                        "DAILY DISCOVERY",
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppTheme.darkTheme.primaryColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    "DAILY DISCOVERY",
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -479,7 +400,7 @@ class HomeScreen extends GetView<HomeController> {
 
   Widget _buildPromptCard(Prompt prompt, int index) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.detail, arguments: prompt),
+      onTap: () => _openPrompt(prompt),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -492,16 +413,11 @@ class HomeScreen extends GetView<HomeController> {
                 children: [
                   CachedNetworkImage(
                     imageUrl: prompt.imageUrl,
-                    // ADD THESE TWO LINES for instant loading from memory
                     memCacheHeight: 400,
                     maxWidthDiskCache: 600,
-                    // useOldImageOnUrlChange: true,
                     filterQuality: FilterQuality.low,
                     fadeInDuration: Duration.zero,
-                    // 🔥 REMOVE FLASH
                     fadeOutDuration: Duration.zero,
-
-                    // Faster rendering
                     placeholder: (context, url) => Shimmer.fromColors(
                       baseColor: Colors.grey[900]!,
                       highlightColor: Colors.grey[800]!,
@@ -511,7 +427,6 @@ class HomeScreen extends GetView<HomeController> {
                         const Icon(Icons.error),
                     fit: BoxFit.cover,
                   ),
-
                   Padding(
                     padding: EdgeInsets.only(left: 22.w),
                     child: Container(
@@ -524,11 +439,7 @@ class HomeScreen extends GetView<HomeController> {
                       child: Row(
                         children: [
                           10.horizontalSpace,
-                          const Icon(
-                            Icons.flash_on,
-                            size: 12,
-                            color: Colors.red,
-                          ),
+                          const Icon(Icons.flash_on, size: 12, color: Colors.red),
                           Text(
                             " ${prompt.genCount} used",
                             style: TextStyle(

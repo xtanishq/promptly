@@ -8,11 +8,9 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import '../data/prompt_data.dart';
-import '../data/prompt_data.dart' as _configService;
 import '../data/prompt_model.dart';
 import '../services/firebase_configuration/RemoteConfigService.dart';
 import '../utils/AppRoutes.dart';
-import 'ImagePrecacheService.dart';
 
 class HomeController extends GetxController {
   // Reactive variables
@@ -31,10 +29,14 @@ class HomeController extends GetxController {
 
   void loadRemoteData() async {
     try {
-      final remoteService = Get.find<RemoteConfigService>();
+      List<Prompt> data = const [];
 
-      // 1. Data fetch karne ki koshish karein
-      final data = await remoteService.getPrompts();
+      if (Get.isRegistered<RemoteConfigService>()) {
+        final remoteService = Get.find<RemoteConfigService>();
+        data = remoteService.getPrompts();
+      } else {
+        debugPrint("⚠️ RemoteConfigService unavailable: using local fallback");
+      }
 
       if (data.isNotEmpty) {
         debugPrint("🔥 Firebase Prompts Loaded: ${data.length} items");

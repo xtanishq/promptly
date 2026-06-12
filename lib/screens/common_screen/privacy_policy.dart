@@ -14,13 +14,15 @@ class PrivacyPolicy extends StatefulWidget {
 
 class _PrivacyPolicyState extends State<PrivacyPolicy> {
   late WebViewController controller;
+  Uri? policyUri;
 
   @override
   void initState() {
-    controller = WebViewController()
-      ..loadRequest(
-        Uri.parse(privacyPolicyUrl),
-      );
+    policyUri = Uri.tryParse(privacyPolicyUrl);
+    controller = WebViewController();
+    if (policyUri != null && privacyPolicyUrl.isNotEmpty) {
+      controller.loadRequest(policyUri!);
+    }
     FirebaseAnalyticsService.logEvent(eventName: "Promptly_PRIVACY_SCREEN");
     super.initState();
   }
@@ -40,7 +42,17 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         ),
       ),
       body: SafeArea(
-        child: WebViewWidget(controller: controller),
+        child: policyUri == null || privacyPolicyUrl.isEmpty
+            ? const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Text(
+                    'Privacy policy is currently unavailable.',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            : WebViewWidget(controller: controller),
       ),
     );
   }

@@ -1,30 +1,21 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:promptly/main.dart';
+import 'package:promptly/data/prompt_model.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const PromptlyApp());
+  test('Prompt JSON round-trip preserves key fields', () {
+    final prompt = Prompt.fromJson(const {
+      'id': '42',
+      'category': 'Sci-Fi',
+      'image_url': 'https://example.com/image.png',
+      'prompt': 'Generate a cinematic robot portrait',
+      'gen_count': '9.1k',
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(prompt.id, '42');
+    expect(prompt.category, 'Sci-Fi');
+    expect(prompt.imageUrl, 'https://example.com/image.png');
+    expect(prompt.promptText, 'Generate a cinematic robot portrait');
+    expect(prompt.genCount, '9.1k');
+    expect(prompt.toJson()['prompt'], 'Generate a cinematic robot portrait');
   });
 }

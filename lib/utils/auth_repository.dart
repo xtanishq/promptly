@@ -1,57 +1,127 @@
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
-class AuthRepository {
+/// AuthRepository — singleton that handles device authentication.
+///
+/// Device ID Strategy (survives uninstall/reinstall):
+/// - Android : uses ANDROID_ID (hardware-bound, stable across reinstalls,
+///             resets only on factory reset)
+/// - iOS     : generates a UUID once and stores it in the Keychain via
+///             flutter_secure_storage (Keychain data persists across reinstalls)
+class AuthRepository extends ChangeNotifier {
   static final AuthRepository _instance = AuthRepository._internal();
   factory AuthRepository() => _instance;
   AuthRepository._internal();
 
   String? _accessToken;
   int _credits = 0;
+  int _overallUsedCredits = 0;
 
   String? get accessToken => _accessToken;
   int get credits => _credits;
+  int get overallUsedCredits => _overallUsedCredits;
 
-  final String _authUrl = 'https://my-worker.scratched.workers.dev/api/auth';
+  static const String _authUrl =
+      'https://my-worker.scratched.workers.dev/api/auth';
+
+  // flutter_secure_storage: Keychain on iOS, Keystore on Android
+  static const _secureStorage = FlutterSecureStorage(
+    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    iOptions: IOSOptions(
+      accessibility: KeychainAccessibility.first_unlock,
+    ),
+  );
+
+  static const _deviceIdKey = 'persistent_device_id';
+
+  // ─── Public API ───────────────────────────────────────────────
 
   Future<void> authenticateUser() async {
-    final prefs = await SharedPreferences.getInstance();
+    final deviceId = await _getOrCreatePersistentDeviceId();
+    await _callAuthApi(deviceId);
+  }
 
-    // 1. Get or generate Device ID
-    String? deviceId = prefs.getString('device_id');
-    if (deviceId == null) {
-      deviceId = const Uuid().v4();
-      await prefs.setString('device_id', deviceId);
+  // ─── Device ID (persistent across reinstalls) ─────────────────
+
+  Future<String> _getOrCreatePersistentDeviceId() async {
+    // 1. Android → use ANDROID_ID (hardware-bound, no reinstall reset)
+    if (Platform.isAndroid) {
+      try {
+        final androidInfo = await DeviceInfoPlugin().androidInfo;
+        final androidId = androidInfo.id; // stable ANDROID_ID
+        if (androidId.isNotEmpty && androidId != 'unknown') {
+          debugPrint('[AuthRepository] Using ANDROID_ID: $androidId');
+          return androidId;
+        }
+      } catch (e) {
+        debugPrint('[AuthRepository] Could not read ANDROID_ID: $e');
+      }
     }
 
-    // 2. Call Auth API
+    // 2. iOS / fallback → Keychain-backed UUID (survives reinstalls on iOS)
     try {
-      final response = await http.post(
+      String? storedId = await _secureStorage.read(key: _deviceIdKey);
+      if (storedId != null && storedId.isNotEmpty) {
+        debugPrint('[AuthRepository] Using Keychain device_id: $storedId');
+        return storedId;
+      }
+
+      // First time — generate and persist in Keychain
+      final newId = const Uuid().v4();
+      await _secureStorage.write(key: _deviceIdKey, value: newId);
+      debugPrint('[AuthRepository] Generated new device_id: $newId');
+      return newId;
+    } catch (e) {
+      debugPrint('[AuthRepository] Secure storage error: $e — using SharedPrefs fallback');
+    }
+
+    // 3. Last resort fallback (SharedPrefs — not reinstall-safe but better than nothing)
+    final prefs = await SharedPreferences.getInstance();
+    String? prefId = prefs.getString(_deviceIdKey);
+    if (prefId != null && prefId.isNotEmpty) return prefId;
+
+    final fallbackId = const Uuid().v4();
+    await prefs.setString(_deviceIdKey, fallbackId);
+    return fallbackId;
+  }
+
+  // ─── Auth API call ────────────────────────────────────────────
+
+  Future<void> _callAuthApi(String deviceId) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    try {
+      final response = await http
+          .post(
         Uri.parse(_authUrl),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({'device_id': deviceId}),
-      );
+      )
+          .timeout(const Duration(seconds: 15));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = json.decode(response.body);
-        _accessToken = data['access_token'];
-        _credits = data['credits'] ?? 0;
+        _accessToken = data['access_token'] as String?;
+        _credits = (data['credits'] as num?)?.toInt() ?? 0;
+        _overallUsedCredits = (data['overall_used_credits'] as num?)?.toInt() ?? 0;
 
-        // Optionally save to prefs if you want it persistent across app restarts without re-authenticating
         if (_accessToken != null) {
           await prefs.setString('access_token', _accessToken!);
         }
-        print("Authenticated successfully. Credits: $_credits");
+        notifyListeners();
+        debugPrint('[AuthRepository] Authenticated. Credits: $_credits, Overall: $_overallUsedCredits');
       } else {
-        print("Auth API failed with status: ${response.statusCode}");
-        // Fallback to previously stored token if offline or error
+        debugPrint('[AuthRepository] Auth failed (${response.statusCode}) — using cached token');
         _accessToken = prefs.getString('access_token');
       }
     } catch (e) {
-      print("Auth API Error: $e");
-      // Fallback
+      debugPrint('[AuthRepository] Auth error: $e — using cached token');
       _accessToken = prefs.getString('access_token');
     }
   }

@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:promptly/services/constant.dart';
-import 'package:provider/provider.dart';
+
 import '../providers/app_state.dart';
 import '../utils/auth_repository.dart';
 
@@ -29,13 +28,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    // Initialize App State
-    // final appState = Provider.of<AppState>(context, listen: false);
-    // await appState.initializeApp();
+    // ─── Run auth + ad preload in parallel ───────────────────────────────────
+    // Ads are globally disabled — no ad preloading
     await AuthRepository().authenticateUser();
 
-    // Artificial delay for the "Vibe"
+    // Minimum 2-second vibe delay (net of however long the above took)
     await Future.delayed(const Duration(seconds: 2));
+
+    // Remove native splash right before we navigate
+    FlutterNativeSplash.remove();
 
     if (mounted) {
       if (controllere.isOnboardingComplete) {
@@ -46,6 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
+  // Ads are globally disabled — this method intentionally removed.
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Spacer(),
+            const Spacer(),
             const Icon(Icons.bolt_rounded, size: 100, color: pressColor)
                 .animate(
                   onPlay: (controller) => controller.repeat(reverse: true),
@@ -62,11 +65,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   duration: 1000.ms,
                   begin: const Offset(0.9, 0.9),
                   end: const Offset(1.1, 1.1),
-                ) // Pulse
+                )
                 .tint(
                   color: Colors.white.withValues(alpha: 0.5),
                   duration: 1000.ms,
-                ) // Glow effect simulation
+                )
                 .then()
                 .tint(
                   color: Theme.of(context).colorScheme.primary,
@@ -101,13 +104,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ],
             ).animate().fadeIn(duration: 800.ms).slideY(begin: 0.2, end: 0),
-Spacer(),
+
+            const Spacer(),
+
             LinearProgressIndicator(
               minHeight: 20.h,
               backgroundColor: Colors.transparent,
               color: context.theme.primaryColorLight,
             ),
-            45.verticalSpace
+            45.verticalSpace,
           ],
         ),
       ),

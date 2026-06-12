@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 
 class StorageService {
   static const String keyUserId = 'user_id';
@@ -10,6 +11,18 @@ class StorageService {
   Future<String?> getUserId() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(keyUserId);
+  }
+
+  Future<String> getOrCreateUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    final existing = prefs.getString(keyUserId);
+    if (existing != null && existing.isNotEmpty) {
+      return existing;
+    }
+
+    final generated = const Uuid().v4();
+    await prefs.setString(keyUserId, generated);
+    return generated;
   }
 
   Future<void> setUserId(String id) async {

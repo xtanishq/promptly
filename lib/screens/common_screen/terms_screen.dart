@@ -14,13 +14,15 @@ class TermsOfUse extends StatefulWidget {
 
 class _TermsOfUseState extends State<TermsOfUse> {
   late WebViewController controller;
+  Uri? termsUri;
 
   @override
   void initState() {
-    controller = WebViewController()
-      ..loadRequest(
-        Uri.parse(termsOfUseUrl),
-      );
+    termsUri = Uri.tryParse(termsOfUseUrl);
+    controller = WebViewController();
+    if (termsUri != null && termsOfUseUrl.isNotEmpty) {
+      controller.loadRequest(termsUri!);
+    }
     FirebaseAnalyticsService.logEvent(eventName: "I2D_TERMS_OF_USE_SCREEN");
     super.initState();
   }
@@ -40,7 +42,17 @@ class _TermsOfUseState extends State<TermsOfUse> {
         ),
       ),
       body: SafeArea(
-        child: WebViewWidget(controller: controller),
+        child: termsUri == null || termsOfUseUrl.isEmpty
+            ? const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Text(
+                    'Terms of use are currently unavailable.',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            : WebViewWidget(controller: controller),
       ),
     );
   }
