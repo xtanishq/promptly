@@ -49,17 +49,17 @@ class RemoteConfigService extends GetxService {
     return this;
   }
 
-  List<Prompt> getPrompts() {
-    String rawJson = _remoteConfig.getString('promptli_list');
-    if (rawJson.isEmpty) return [];
-    try {
-      List<dynamic> decodedList = jsonDecode(rawJson);
-      return decodedList.map((e) => Prompt.fromJson(e)).toList();
-    } catch (e) {
-      debugPrint("Error decoding prompts: $e");
-      return [];
-    }
-  }
+  // List<Prompt> getPrompts() {
+  //   String rawJson = _remoteConfig.getString('promptli_list');
+  //   if (rawJson.isEmpty) return [];
+  //   try {
+  //     List<dynamic> decodedList = jsonDecode(rawJson);
+  //     return decodedList.map((e) => Prompt.fromJson(e)).toList();
+  //   } catch (e) {
+  //     debugPrint("Error decoding prompts: $e");
+  //     return [];
+  //   }
+  // }
 
   void applyAdsSettings() {
     final String adsJson = _remoteConfig.getString("promptly");

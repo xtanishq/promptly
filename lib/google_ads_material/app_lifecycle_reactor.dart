@@ -1,6 +1,5 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../services/google_ads_material/ads_variable.dart';
-import 'ads_variable.dart';
 import 'app_open_ad_manager.dart';
 
 class AppLifecycleReactor {

@@ -2,6 +2,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,8 +43,11 @@ class PurchaseController extends GetxController {
   // ── Startup hydration ──────────────────────────────────────────────────────
 
   /// Called once at startup (main.dart) to restore subscription + credit state.
+  /// Forces a fresh fetch from RevenueCat's servers (bypassing any stale local
+  /// cache) so a recently-activated entitlement is always picked up.
   Future<void> checkPurchasesStatus() async {
     try {
+      await Purchases.invalidateCustomerInfoCache();
       final customerInfo = await Purchases.getCustomerInfo();
       final active =
           customerInfo.entitlements.all[entitlementKey]?.isActive ?? false;
@@ -54,8 +58,14 @@ class PurchaseController extends GetxController {
       final saved = prefs.getInt('promptly_credits') ?? 0;
       credits.value = saved;
       AdsVariable.credits.value = saved;
-    } catch (e) {
+    } catch (e, st) {
       debugPrint('[PurchaseController] checkPurchasesStatus error: $e');
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        st,
+        reason: 'checkPurchasesStatus failed at startup',
+        fatal: false,
+      );
     }
   }
 
@@ -72,15 +82,29 @@ class PurchaseController extends GetxController {
       // Step 1: Trigger purchase
       await Purchases.purchase(PurchaseParams.package(package));
 
-      // Step 2: Fetch FRESH CustomerInfo (for logging/future use)
+      // Step 2: Fetch FRESH CustomerInfo and trust it — this is the same
+      // check used at startup (checkPurchasesStatus), so granting access
+      // here without it being true just gets reverted on next app launch.
+      await Purchases.invalidateCustomerInfoCache();
       final freshInfo = await Purchases.getCustomerInfo();
       final isEntitlementActive =
           freshInfo.entitlements.all[entitlementKey]?.isActive ?? false;
       debugPrint('[IAP] Entitlement active after purchase: $isEntitlementActive');
 
-      // Step 3: Grant access
-      // active=true  → entitlement confirmed by RevenueCat
-      // active=false → test store edge case, still grant (receipt POST was 200)
+      if (!isEntitlementActive) {
+        // The store call succeeded but RevenueCat doesn't show an active
+        // entitlement — likely an entitlement/product config mismatch.
+        // Surface it instead of silently granting fake access.
+        FirebaseCrashlytics.instance.recordError(
+          'Purchase succeeded but entitlement "$entitlementKey" is not active',
+          StackTrace.current,
+          reason: 'buySubscription entitlement mismatch',
+          fatal: false,
+        );
+        onError('Purchase completed but could not be verified. Please contact support or try Restore Purchases.');
+        return false;
+      }
+
       AdsVariable.isPurchase.value = true;
       isSubscribed.value = true;
 

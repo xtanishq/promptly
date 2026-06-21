@@ -172,7 +172,8 @@ class DetailScreen extends GetView<AppController> {
                           child: SizedBox(
                             height: 56,
                             child: ElevatedButton.icon(
-                              onPressed: () {
+                              onPressed: ()
+                              {
                                 Get.to(() => ImageAndTextPage(initialPrompt: prompt.promptText));
                               },
                               style: ElevatedButton.styleFrom(

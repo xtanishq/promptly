@@ -9,6 +9,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import '../data/prompt_data.dart';
 import '../data/prompt_model.dart';
+import '../main.dart';
 import '../services/firebase_configuration/RemoteConfigService.dart';
 import '../utils/AppRoutes.dart';
 
@@ -26,42 +27,59 @@ class HomeController extends GetxController {
     super.onInit();
     loadRemoteData();
   }
-
   void loadRemoteData() async {
     try {
-      List<Prompt> data = const [];
-
-      if (Get.isRegistered<RemoteConfigService>()) {
-        final remoteService = Get.find<RemoteConfigService>();
-        data = remoteService.getPrompts();
-      } else {
-        debugPrint("⚠️ RemoteConfigService unavailable: using local fallback");
-      }
+      final promptService = Get.find<PromptFeedService>();
+      final data = await promptService.getPrompts();
 
       if (data.isNotEmpty) {
-        debugPrint("🔥 Firebase Prompts Loaded: ${data.length} items");
         _updateLocalState(data);
       } else {
-        // 2. FALLBACK: Agar internet nahi hai ya data empty hai
-        debugPrint("📡 No Internet or Empty Firebase: Loading Local Fallback");
-        final localData = getPrompts(); // Aapka purana local data function
-        _updateLocalState(localData);
+        _updateLocalState(getPrompts());
       }
-
-      // 3. Pre-caching logic (Sirf tabhi chalega jab context ho)
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (Get.context != null && prompts.isNotEmpty) {
-          _precacheImages(prompts.toList());
-        }
-      });
     } catch (e) {
-      debugPrint("❌ Remote Data Error: $e");
-      // Catch mein bhi fallback load karein taaki app crash na ho
+      debugPrint("❌ Supabase Data Error: $e");
       _updateLocalState(getPrompts());
     } finally {
       isLoading.value = false;
     }
   }
+
+  // void loadRemoteData() async {
+  //   try {
+  //     List<Prompt> data = const [];
+  //
+  //     if (Get.isRegistered<RemoteConfigService>()) {
+  //       final remoteService = Get.find<RemoteConfigService>();
+  //       data = remoteService.getPrompts();
+  //     } else {
+  //       debugPrint("⚠️ RemoteConfigService unavailable: using local fallback");
+  //     }
+  //
+  //     if (data.isNotEmpty) {
+  //       debugPrint("🔥 Firebase Prompts Loaded: ${data.length} items");
+  //       _updateLocalState(data);
+  //     } else {
+  //       // 2. FALLBACK: Agar internet nahi hai ya data empty hai
+  //       debugPrint("📡 No Internet or Empty Firebase: Loading Local Fallback");
+  //       final localData = getPrompts(); // Aapka purana local data function
+  //       _updateLocalState(localData);
+  //     }
+  //
+  //     // 3. Pre-caching logic (Sirf tabhi chalega jab context ho)
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       if (Get.context != null && prompts.isNotEmpty) {
+  //         _precacheImages(prompts.toList());
+  //       }
+  //     });
+  //   } catch (e) {
+  //     debugPrint("❌ Remote Data Error: $e");
+  //     // Catch mein bhi fallback load karein taaki app crash na ho
+  //     _updateLocalState(getPrompts());
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 
   void _updateLocalState(List<Prompt> data) {
     prompts.assignAll(data);

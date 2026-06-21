@@ -10,7 +10,9 @@ import 'package:promptly/services/firebase_configuration/RemoteConfigService.dar
 import 'package:promptly/services/language_service.dart';
 import 'package:promptly/utils/AppRoutes.dart';
 import 'package:promptly/utils/AppTheme.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'data/creations_store.dart';
+import 'data/prompt_model.dart';
 import 'injection.dart';
 import 'network/api_client.dart';
 
@@ -22,11 +24,18 @@ Future<void> main() async {
   ApiClient.instance.init();
   configureDependencies();
   // 1. Core System UI Configuration
+  await Supabase.initialize(
+    url: 'https://mkpiutvitriyqbasecft.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rcGl1dHZpdHJpeXFiYXNlY2Z0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNTg2MjIsImV4cCI6MjA5NTczNDYyMn0.YFOgkkULCc3Jm1DVux7sawNNbf6-lsc63oJCe3ufasA',
+  );
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  Get.lazyPut(()=>PromptFeedService());
+
 
   // 2. Initialize Critical Services
   Get.put(LocaleController());
@@ -86,5 +95,40 @@ class PromptlyApp extends StatelessWidget {
         ),
       );
 
+  }
+}
+class PromptFeedService {
+  SupabaseClient get _supabase => Supabase.instance.client;
+
+  Future<List<Prompt>> getPrompts() async {
+    final appRow = await _supabase
+        .from('apps')
+        .select('id')
+        .eq('slug', 'promptly')
+        .maybeSingle();
+
+    if (appRow == null) {
+      debugPrint('❌ No app found for slug promptly');
+      return [];
+    }
+
+    final publicationRow = await _supabase
+        .from('app_publications')
+        .select('payload')
+        .eq('app_id', appRow['id'])
+        .eq('is_current', true)
+        .maybeSingle();
+
+    if (publicationRow == null) {
+      debugPrint('❌ No current publication found for Promptly');
+      return [];
+    }
+
+    final payload = publicationRow['payload'] as List<dynamic>;
+
+    return payload.map((row) {
+      final item = Map<String, dynamic>.from(row as Map);
+      return Prompt.fromJson(item);
+    }).toList();
   }
 }

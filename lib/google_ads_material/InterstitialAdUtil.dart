@@ -2,7 +2,6 @@ import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../services/google_ads_material/ads_variable.dart';
-import 'ads_variable.dart';
 
 class InterstitialAdManager {
   static InterstitialAd? interstitialAd;
