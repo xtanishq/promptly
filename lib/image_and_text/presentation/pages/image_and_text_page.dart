@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show Either;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:promptly/in_app_purchase/constant.dart';
-import 'package:promptly/in_app_purchase/purchase_controller.dart';
+import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
+import 'package:promptly/in_app_purchase/iap_config.dart';
 import 'package:promptly/in_app_purchase/screens/credit_screen.dart';
 import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show UpsellScreen;
+import 'package:promptly/injection.dart';
 import '../../../services/google_ads_material/ads_variable.dart';
 import '../../data/repositories/image_and_text_repository.dart';
 import '../../../services/creations_storage.dart';
@@ -76,11 +77,11 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
     }
 
     // ── Gate: must have enough credits ──────────────────────────────────────
-    final purchaseCtrl = Get.find<PurchaseController>();
-    if (!purchaseCtrl.hasEnoughCredits(generateImageCost)) {
+    final purchaseBloc = getIt<PurchaseBloc>();
+    if (!purchaseBloc.state.hasEnoughCredits(IapConfig.generateImageCost)) {
       Get.snackbar(
         'Not Enough Credits ⚡',
-        'You need at least $generateImageCost credits to generate. Buy more!',
+        'You need at least ${IapConfig.generateImageCost} credits to generate. Buy more!',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: const Color(0xFF1E1E1E),
         colorText: Colors.orange,
@@ -95,13 +96,7 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
     }
 
     // ── All gates passed → deduct credits & generate ─────────────────────
-    unawaited(_deductAndGenerate(purchaseCtrl));
-  }
-
-  Future<void> _deductAndGenerate(PurchaseController purchaseCtrl) async {
-    // Deduct 5 credits first
-    final deducted = await purchaseCtrl.cutCredit(generateImageCost);
-    if (!deducted) return; // race condition guard
+    purchaseBloc.add(const CreditSpent(IapConfig.generateImageCost));
     unawaited(_startGenerationFlow());
   }
 

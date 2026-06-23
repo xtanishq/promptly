@@ -294,23 +294,7 @@ if(_currentPage==1)
                                 );
                               });
                             } else {
-                              _finishOnboarding();                              //   SharedPreferencesService.setUser("username");
-                              //   CheckPurchasesStatus.initPlatformState().then((
-                              //       value,
-                              //       ) async {
-                              //     if (value) {
-                              //       Get.offAll(
-                              //         const Homescreennew(),
-                              //         transition: Transition.fadeIn,
-                              //       );
-                              //
-                              //     } else {
-                              //       Get.offAll(
-                              //         const UpsellScreen(item: false),
-                              //         transition: Transition.fadeIn,
-                              //       );
-                              //     }
-                              //   });
+                              _finishOnboarding();
                             }
                           },
                           height: 200.h,

@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:promptly/in_app_purchase/purchase_controller.dart';
-import 'package:promptly/in_app_purchase/constant.dart';
+import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
+import 'package:promptly/in_app_purchase/iap_config.dart';
+import 'package:promptly/injection.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 // ── Colors ────────────────────────────────────────────────────────────────────
@@ -28,59 +28,41 @@ class _CreditController extends GetxController {
 
   // UI selection — works WITHOUT RevenueCat packages
   // Default: ₹300 pack selected
-  RxString selectedPlanId = creditPack300.obs;
+  RxString selectedPlanId = IapConfig.creditPack300.obs;
 
   RxBool isLoading = false.obs;
 
   // Get the credits for currently selected plan
-  int get selectedCredits =>
-      selectedPlanId.value == creditPack600 ? creditPack600Amount : creditPack300Amount;
+  int get selectedCredits => selectedPlanId.value == IapConfig.creditPack600
+      ? IapConfig.creditPack600Amount
+      : IapConfig.creditPack300Amount;
 
-  /// Buy credit pack using Purchases.getProducts() directly
-  /// No RevenueCat "credits" offering needed — works with just Play Console products
+  /// Buy the selected credit pack via the PurchaseBloc (RevenueCat under the hood).
   Future<void> buy(BuildContext context) async {
     isLoading.value = true;
-    try {
-      // Step 1: Fetch the StoreProduct directly by product ID
-      final products = await Purchases.getProducts(
-        [selectedPlanId.value],
-        productCategory: ProductCategory.nonSubscription,
-      );
-
-      if (products.isEmpty) {
-        _toast('Product not found in store. Please try again.');
-        isLoading.value = false;
-        return;
-      }
-
-      // Step 2: Purchase it
-      await Purchases.purchaseStoreProduct(products.first);
-
-      // Step 3: Grant credits
-      await Get.find<PurchaseController>().addCredits(selectedCredits);
-
-      isLoading.value = false;
+    final bloc = getIt<PurchaseBloc>();
+    final done = bloc.stream.firstWhere((s) =>
+        s.status == PurchaseStatus.success ||
+        s.status == PurchaseStatus.error ||
+        s.status == PurchaseStatus.cancelled);
+    bloc.add(CreditPackPurchaseRequested(selectedPlanId.value, selectedCredits));
+    final result = await done;
+    isLoading.value = false;
+    if (result.status == PurchaseStatus.success) {
       Get.back();
       _toast('💪 $selectedCredits credits added!');
       Future.delayed(const Duration(milliseconds: 400), () => onSuccess?.call());
-
-    } on PlatformException catch (e) {
-      final code = PurchasesErrorHelper.getErrorCode(e);
-      if (code != PurchasesErrorCode.purchaseCancelledError) {
-        _toast(e.message ?? 'Purchase failed. Please try again.');
-      }
-      isLoading.value = false;
-    } catch (e) {
-      _toast('Something went wrong. Please try again.');
-      isLoading.value = false;
+    } else if (result.status == PurchaseStatus.error) {
+      _toast(result.error ?? 'Purchase failed. Please try again.');
     }
+    // cancelled → user backed out, do nothing
   }
 
   /// DEBUG only — simulate credit purchase without store
   Future<void> simulateBuy() async {
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 700));
-    await Get.find<PurchaseController>().addCredits(selectedCredits);
+    getIt<PurchaseBloc>().add(CreditsGranted(selectedCredits));
     isLoading.value = false;
     Get.back();
     _toast('🧪 [DEBUG] $selectedCredits credits added!');
@@ -286,8 +268,8 @@ class CreditScreen extends StatelessWidget {
         _CreditPackTile(
           ctrl: ctrl,
           label: '₹300 Pack',
-          credits: creditPack300Amount,
-          planId: creditPack300,
+          credits: IapConfig.creditPack300Amount,
+          planId: IapConfig.creditPack300,
           priceLabel: '₹300',
           badge: null,
         ),
@@ -295,8 +277,8 @@ class CreditScreen extends StatelessWidget {
         _CreditPackTile(
           ctrl: ctrl,
           label: '₹600 Pack',
-          credits: creditPack600Amount,
-          planId: creditPack600,
+          credits: IapConfig.creditPack600Amount,
+          planId: IapConfig.creditPack600,
           priceLabel: '₹600',
           badge: 'BEST VALUE',
         ),

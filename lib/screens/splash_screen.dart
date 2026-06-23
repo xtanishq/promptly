@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:promptly/services/constant.dart';
+import 'package:promptly/services/google_ads_material/ads_service.dart';
 
 import '../providers/app_state.dart';
 import '../utils/auth_repository.dart';
@@ -28,12 +29,24 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    // ─── Run auth + ad preload in parallel ───────────────────────────────────
-    // Ads are globally disabled — no ad preloading
+    final sw = Stopwatch()..start();
+
+    // ─── Run auth + ad bootstrap in parallel ─────────────────────────────────
+    // AdsBootstrap gathers GDPR consent and initializes MobileAds (no-op for
+    // subscribers / when ads are disabled). Time-boxed so a misbehaving consent
+    // SDK can never trap the user on the splash.
+    final adsFuture = AdsService.instance.init().timeout(
+      const Duration(seconds: 8),
+      onTimeout: () {},
+    );
     await AuthRepository().authenticateUser();
+    await adsFuture;
 
     // Minimum 2-second vibe delay (net of however long the above took)
-    await Future.delayed(const Duration(seconds: 2));
+    final elapsed = sw.elapsedMilliseconds;
+    if (elapsed < 2000) {
+      await Future.delayed(Duration(milliseconds: 2000 - elapsed));
+    }
 
     // Remove native splash right before we navigate
     FlutterNativeSplash.remove();

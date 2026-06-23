@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:promptly/in_app_purchase/purchase_controller.dart';
+import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
+import 'package:promptly/injection.dart';
 import 'package:promptly/services/constant.dart';
 import 'package:promptly/services/google_ads_material/ads_variable.dart';
 import 'package:promptly/screens/common_screen/privacy_policy.dart';
@@ -44,38 +45,40 @@ class _SubController extends GetxController {
   }
 
   Future<void> purchase(BuildContext context) async {
-    if (selectedPackage.value == null) return;
+    final pkg = selectedPackage.value;
+    if (pkg == null) return;
     isLoading.value = true;
-    final ctrl = Get.find<PurchaseController>();
-    await ctrl.buySubscription(
-      package: selectedPackage.value!,
-      onSuccess: () {
-        isLoading.value = false;
-        Get.back(); // close subscription screen
-        _showSuccessAndNavigate();
-      },
-      onError: (msg) {
-        isLoading.value = false;
-        appToast(msg);
-      },
-    );
+    final bloc = getIt<PurchaseBloc>();
+    final done = bloc.stream.firstWhere((s) =>
+        s.status == PurchaseStatus.success ||
+        s.status == PurchaseStatus.error ||
+        s.status == PurchaseStatus.cancelled);
+    bloc.add(SubscriptionPurchaseRequested(pkg));
+    final result = await done;
     isLoading.value = false;
+    if (result.status == PurchaseStatus.success) {
+      Get.back(); // close subscription screen
+      _showSuccessAndNavigate();
+    } else if (result.status == PurchaseStatus.error) {
+      appToast(result.error ?? 'Purchase failed');
+    }
+    // cancelled → user backed out, do nothing
   }
 
   Future<void> restore() async {
     isLoading.value = true;
-    final ctrl = Get.find<PurchaseController>();
-    await ctrl.restorePurchases(
-      onSuccess: () {
-        isLoading.value = false;
-        appToast('Subscription restored!');
-        Get.back();
-      },
-      onError: (msg) {
-        isLoading.value = false;
-        appToast('No active subscription found.');
-      },
-    );
+    final bloc = getIt<PurchaseBloc>();
+    final done = bloc.stream.firstWhere((s) =>
+        s.status == PurchaseStatus.success || s.status == PurchaseStatus.error);
+    bloc.add(const PurchasesRestoreRequested());
+    final result = await done;
+    isLoading.value = false;
+    if (result.status == PurchaseStatus.success) {
+      appToast('Subscription restored!');
+      Get.back();
+    } else {
+      appToast('No active subscription found.');
+    }
   }
 
   void _showSuccessAndNavigate() {
@@ -90,9 +93,7 @@ class _SubController extends GetxController {
   Future<void> simulatePurchase() async {
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 800));
-    final purchaseCtrl = Get.find<PurchaseController>();
-    await purchaseCtrl.addCredits(AdsVariable.subscriptionBonus);
-    AdsVariable.isPurchase.value = true;
+    getIt<PurchaseBloc>().add(DebugSimulateSubscription(AdsVariable.subscriptionBonus));
     isLoading.value = false;
     Get.back();
     appToast('🧪 [DEBUG] Subscribed! Credits added.');

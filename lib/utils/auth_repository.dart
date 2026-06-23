@@ -28,7 +28,7 @@ class AuthRepository extends ChangeNotifier {
   int get overallUsedCredits => _overallUsedCredits;
 
   static const String _authUrl =
-      'https://my-worker.scratched.workers.dev/api/auth';
+      'http://my-worker.scratched.workers.dev/api/promptly/auth';
 
   // flutter_secure_storage: Keychain on iOS, Keystore on Android
   static const _secureStorage = FlutterSecureStorage(

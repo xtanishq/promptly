@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:promptly/controllers/app_bindings.dart';
-import 'package:promptly/in_app_purchase/purchase_controller.dart';
-import 'package:promptly/in_app_purchase/store_config.dart';
+import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
+import 'package:promptly/in_app_purchase/purchase_repository.dart';
 import 'package:promptly/services/firebase_configuration/RemoteConfigService.dart';
 import 'package:promptly/services/language_service.dart';
 import 'package:promptly/utils/AppRoutes.dart';
@@ -44,19 +45,15 @@ Future<void> main() async {
   await Get.putAsync(() => remoteConfig.init());
   Get.find<RemoteConfigService>().applyAdsSettings();
 
-  // 3. Initialize RevenueCat + register PurchaseController globally
-  //    permanent: true ensures Get.find<PurchaseController>() works everywhere
+  // 3. Initialize RevenueCat, then hydrate the PurchaseBloc (get_it singleton).
+  //    configure() MUST run before the bloc is built (it attaches a RevenueCat
+  //    customer-info listener). The bloc mirrors state into AdsVariable.
   try {
-    await configureStore();
+    await getIt<PurchaseRepository>().configure();
   } catch (e) {
-    debugPrint('[IAP] configureStore error: $e');
+    debugPrint('[IAP] configure error: $e');
   }
-  final purchaseCtrl = Get.put(PurchaseController(), permanent: true);
-  try {
-    await purchaseCtrl.checkPurchasesStatus();
-  } catch (e) {
-    debugPrint('[IAP] checkPurchasesStatus error: $e');
-  }
+  getIt<PurchaseBloc>().add(const PurchaseStarted());
 
   runApp(const PromptlyApp());
 }
@@ -69,7 +66,9 @@ class PromptlyApp extends StatelessWidget {
 
       // final LocaleController lc = Get.find();
 
-      return ScreenUtilInit(
+      return BlocProvider<PurchaseBloc>.value(
+        value: getIt<PurchaseBloc>(),
+        child: ScreenUtilInit(
         designSize: const Size(1290, 2796),
         minTextAdapt: true,
         splitScreenMode: false,
@@ -93,6 +92,7 @@ class PromptlyApp extends StatelessWidget {
           getPages: AppRoutes.pages,
           // onGenerateRoute: AppRoutes.splash,
         ),
+      ),
       );
 
   }

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
 import 'package:get/get.dart';
-import 'package:promptly/in_app_purchase/purchase_controller.dart';
+import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
 import 'package:promptly/in_app_purchase/screens/credit_screen.dart';
 import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show UpsellScreen;
-import 'package:promptly/in_app_purchase/constant.dart';
+import 'package:promptly/in_app_purchase/iap_config.dart';
 import 'package:promptly/screens/common_screen/PIX_setting_screen.dart';
 import 'package:promptly/services/constant.dart';
-import 'package:promptly/services/google_ads_material/ads_variable.dart';
 import 'package:promptly/services/ShimmerLoader.dart';
 import 'package:promptly/services/costom_tab_view.dart';
 import 'package:promptly/utils/AppRoutes.dart';
@@ -22,41 +22,12 @@ import '../data/prompt_model.dart';
 
 class HomeScreen extends GetView<HomeController> {
 
-  // ── Navigation gate ─────────────────────────────────────────────────────────
-  /// Called when user taps any prompt card or daily discovery.
-  /// Logic:
-  ///   1. Not subscribed → show Subscription screen
-  ///   2. Subscribed but credits < lowCreditThreshold → show Credit screen
-  ///   3. Subscribed + enough credits → go to prompt detail
+  // ── Open a prompt ───────────────────────────────────────────────────────────
+  /// Browsing is always free — tapping a prompt opens its detail directly.
+  /// Monetization is handled at the *action* (Copy / use) inside the detail
+  /// screen via [UsageGateService]. PRO / credit badges in the AppBar remain
+  /// the upsell entry points.
   void _openPrompt(Prompt prompt) {
-    final purchaseCtrl = Get.find<PurchaseController>();
-
-    if (!AdsVariable.isPurchase.value) {
-      // Not subscribed → show paywall, then auto-navigate to detail on success
-      Get.to(
-        () => UpsellScreen(
-          item: true,
-          onSuccess: () => Get.toNamed(AppRoutes.detail, arguments: prompt),
-        ),
-        transition: Transition.downToUp,
-        duration: const Duration(milliseconds: 350),
-      );
-      return;
-    }
-
-    if (!purchaseCtrl.hasEnoughCredits(lowCreditThreshold)) {
-      // Low credits → show credit screen, then auto-navigate to detail on success
-      Get.to(
-        () => CreditScreen(
-          onSuccess: () => Get.toNamed(AppRoutes.detail, arguments: prompt),
-        ),
-        transition: Transition.downToUp,
-        duration: const Duration(milliseconds: 350),
-      );
-      return;
-    }
-
-    // All good → navigate directly
     Get.toNamed(AppRoutes.detail, arguments: prompt);
   }
 
@@ -100,8 +71,8 @@ class HomeScreen extends GetView<HomeController> {
           const Spacer(),
 
           // ── Credits badge (always visible, tappable to buy more) ──────────
-          Obx(() {
-            final credits = AdsVariable.credits.value;
+          BlocBuilder<PurchaseBloc, PurchaseState>(builder: (context, state) {
+            final credits = state.credits;
             return GestureDetector(
               onTap: _openCreditScreen,
               child: Container(
@@ -111,7 +82,7 @@ class HomeScreen extends GetView<HomeController> {
                   color: const Color(0xFF1A1A1A),
                   borderRadius: BorderRadius.circular(50),
                   border: Border.all(
-                    color: credits < lowCreditThreshold
+                    color: credits < IapConfig.lowCreditThreshold
                         ? Colors.orange
                         : const Color(0xFFCCFF00),
                     width: 1.5,
@@ -122,7 +93,7 @@ class HomeScreen extends GetView<HomeController> {
                   children: [
                     Icon(
                       Icons.bolt_rounded,
-                      color: credits < lowCreditThreshold
+                      color: credits < IapConfig.lowCreditThreshold
                           ? Colors.orange
                           : const Color(0xFFCCFF00),
                       size: 36.sp,
@@ -131,7 +102,7 @@ class HomeScreen extends GetView<HomeController> {
                     Text(
                       '$credits',
                       style: TextStyle(
-                        color: credits < lowCreditThreshold
+                        color: credits < IapConfig.lowCreditThreshold
                             ? Colors.orange
                             : Colors.white,
                         fontSize: 36.sp,
@@ -145,8 +116,8 @@ class HomeScreen extends GetView<HomeController> {
           }),
 
           // ── PRO badge (only shows when NOT subscribed) ────────────────────
-          Obx(() {
-            if (AdsVariable.isPurchase.value) return const SizedBox.shrink();
+          BlocBuilder<PurchaseBloc, PurchaseState>(builder: (context, state) {
+            if (state.isSubscribed) return const SizedBox.shrink();
             return GestureDetector(
               onTap: _openSubscriptionScreen,
               child: Container(
