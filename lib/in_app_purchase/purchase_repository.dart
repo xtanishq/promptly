@@ -25,8 +25,10 @@ class PurchaseRepository {
       return; // unsupported platform → IAP silently disabled
     }
     config.appUserID = appUserId;
+    // TEMP DIAGNOSTIC: verbose RevenueCat logs in ALL builds. Revert to
+    // `if (kDebugMode)` once the entitlement issue is resolved.
+    await Purchases.setLogLevel(LogLevel.debug);
     await Purchases.configure(config);
-    if (kDebugMode) await Purchases.setLogLevel(LogLevel.debug);
   }
 
   // ── Entitlement ────────────────────────────────────────────────────────────
@@ -36,6 +38,7 @@ class PurchaseRepository {
   Future<bool> isEntitlementActive({bool forceRefresh = false}) async {
     if (forceRefresh) await Purchases.invalidateCustomerInfoCache();
     final info = await Purchases.getCustomerInfo();
+    _logEntitlements('getCustomerInfo', info);
     return _active(info);
   }
 
@@ -61,9 +64,22 @@ class PurchaseRepository {
   /// (authoritative at purchase time), then falls back to a fresh fetch to
   /// cover any server propagation lag.
   Future<bool> purchaseSubscription(Package package) async {
+    debugPrint('[IAP] purchasing package "${package.identifier}" '
+        '→ product "${package.storeProduct.identifier}"');
     final result = await Purchases.purchase(PurchaseParams.package(package));
+    _logEntitlements('afterPurchase', result.customerInfo);
     final active = _active(result.customerInfo);
     return active || await isEntitlementActive(forceRefresh: true);
+  }
+
+  /// TEMP DIAGNOSTIC — prints exactly what RevenueCat returns so we can see the
+  /// real entitlement identifier (vs IapConfig.entitlementKey) and whether the
+  /// integration granted anything at all.
+  void _logEntitlements(String where, CustomerInfo info) {
+    debugPrint('[IAP] $where — all=${info.entitlements.all.keys.toList()} '
+        'active=${info.entitlements.active.keys.toList()} '
+        'looking-for="${IapConfig.entitlementKey}" '
+        'activeSubs=${info.activeSubscriptions.toList()}');
   }
 
   /// Buys a one-time, non-subscription credit pack by product id.
