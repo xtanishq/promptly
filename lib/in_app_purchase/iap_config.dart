@@ -9,8 +9,9 @@ class IapConfig {
   static const String appleApiKey   = 'test_mPwMviDOtToJZhAdnZCFCWClkau'; // TODO(prod): real iOS key
   static const String amazonApiKey  = 'amazon_api_key';
 
-  // ── Entitlement (must match RevenueCat → Entitlements identifier) ───────────
-  static const String entitlementKey = 'promptlyPro';
+  // ── Entitlement (must match RevenueCat → Entitlements identifier EXACTLY) ───
+  // RevenueCat dashboard identifier is "promptly Pro" (space, lowercase p).
+  static const String entitlementKey = 'promptly Pro';
 
   // ── Subscription product ids (RevenueCat / Play Console / App Store) ────────
   static const String planMonthly = 'monthly';

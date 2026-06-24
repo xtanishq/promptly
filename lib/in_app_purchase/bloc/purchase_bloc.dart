@@ -64,6 +64,13 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
     SubscriptionPurchaseRequested e,
     Emitter<PurchaseState> emit,
   ) async {
+    // Already entitled → nothing to buy. Treat as success; this also avoids
+    // Play's "unable to change subscription plan" error on a re-purchase tap.
+    if (state.isSubscribed) {
+      emit(state.copyWith(status: PurchaseStatus.success));
+      return;
+    }
+
     emit(state.copyWith(status: PurchaseStatus.loading));
     try {
       final active = await _repo.purchaseSubscription(e.package);
@@ -90,10 +97,24 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
         credits: credits,
         status: PurchaseStatus.success,
       ));
-    } on PlatformException catch (e) {
-      emit(_fromStoreError(e));
-    } catch (e) {
-      emit(state.copyWith(status: PurchaseStatus.error, error: e.toString()));
+    } on PlatformException catch (ex) {
+      if (PurchasesErrorHelper.getErrorCode(ex) ==
+          PurchasesErrorCode.purchaseCancelledError) {
+        emit(state.copyWith(status: PurchaseStatus.cancelled));
+        return;
+      }
+      // Store rejected the purchase (e.g. "can't change plan" because the
+      // account already owns this sub). If the entitlement is in fact active,
+      // recognise it as success instead of surfacing the raw store error.
+      try {
+        if (await _repo.isEntitlementActive(forceRefresh: true)) {
+          emit(state.copyWith(isSubscribed: true, status: PurchaseStatus.success));
+          return;
+        }
+      } catch (_) {}
+      emit(_fromStoreError(ex));
+    } catch (ex) {
+      emit(state.copyWith(status: PurchaseStatus.error, error: ex.toString()));
     }
   }
 

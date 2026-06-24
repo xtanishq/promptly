@@ -57,10 +57,13 @@ class PurchaseRepository {
   Future<Offerings> getOfferings() => Purchases.getOfferings();
 
   /// Buys a subscription package and returns whether the entitlement is active
-  /// afterwards (trusts a fresh CustomerInfo fetch, not just the store result).
+  /// afterwards. Reads the CustomerInfo returned by the purchase directly
+  /// (authoritative at purchase time), then falls back to a fresh fetch to
+  /// cover any server propagation lag.
   Future<bool> purchaseSubscription(Package package) async {
-    await Purchases.purchase(PurchaseParams.package(package));
-    return isEntitlementActive(forceRefresh: true);
+    final result = await Purchases.purchase(PurchaseParams.package(package));
+    final active = _active(result.customerInfo);
+    return active || await isEntitlementActive(forceRefresh: true);
   }
 
   /// Buys a one-time, non-subscription credit pack by product id.
