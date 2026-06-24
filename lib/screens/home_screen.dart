@@ -12,6 +12,7 @@ import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show 
 import 'package:promptly/in_app_purchase/iap_config.dart';
 import 'package:promptly/screens/common_screen/PIX_setting_screen.dart';
 import 'package:promptly/services/constant.dart';
+import 'package:promptly/utils/auth_repository.dart';
 import 'package:promptly/services/ShimmerLoader.dart';
 import 'package:promptly/services/costom_tab_view.dart';
 import 'package:promptly/utils/AppRoutes.dart';
@@ -70,9 +71,11 @@ class HomeScreen extends GetView<HomeController> {
           ),
           const Spacer(),
 
-          // ── Credits badge (always visible, tappable to buy more) ──────────
-          BlocBuilder<PurchaseBloc, PurchaseState>(builder: (context, state) {
-            final credits = state.credits;
+          // ── Credits badge (backend balance, tappable to buy more) ─────────
+          ListenableBuilder(
+            listenable: AuthRepository(),
+            builder: (context, _) {
+            final credits = AuthRepository().credits;
             return GestureDetector(
               onTap: _openCreditScreen,
               child: Container(

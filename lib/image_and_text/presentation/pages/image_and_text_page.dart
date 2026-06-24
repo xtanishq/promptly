@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' show Either;
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
 import 'package:promptly/in_app_purchase/iap_config.dart';
 import 'package:promptly/in_app_purchase/screens/credit_screen.dart';
 import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show UpsellScreen;
-import 'package:promptly/injection.dart';
+import 'package:promptly/utils/auth_repository.dart';
 import '../../../services/google_ads_material/ads_variable.dart';
 import '../../data/repositories/image_and_text_repository.dart';
 import '../../../services/creations_storage.dart';
@@ -76,9 +75,8 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
       return;
     }
 
-    // ── Gate: must have enough credits ──────────────────────────────────────
-    final purchaseBloc = getIt<PurchaseBloc>();
-    if (!purchaseBloc.state.hasEnoughCredits(IapConfig.generateImageCost)) {
+    // ── Gate: must have enough credits (backend balance) ────────────────────
+    if (AuthRepository().credits < IapConfig.generateImageCost) {
       Get.snackbar(
         'Not Enough Credits ⚡',
         'You need at least ${IapConfig.generateImageCost} credits to generate. Buy more!',
@@ -95,8 +93,7 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
       return;
     }
 
-    // ── All gates passed → deduct credits & generate ─────────────────────
-    purchaseBloc.add(const CreditSpent(IapConfig.generateImageCost));
+    // ── All gates passed → generate (the backend deducts the credits) ────────
     unawaited(_startGenerationFlow());
   }
 
@@ -111,6 +108,11 @@ class _ImageAndTextPageState extends State<ImageAndTextPage> {
     });
 
     final generationFuture = _repository.generateImage(imageFile, prompt);
+    // Backend deducts credits on a successful generate → refresh the balance
+    // so the home badge reflects the new value.
+    generationFuture.then(
+      (result) => result.fold((_) {}, (_) => AuthRepository().refreshCredits()),
+    );
     Either<String, String>? completedResult;
 
     unawaited(

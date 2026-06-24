@@ -3,15 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'iap_config.dart';
 
 /// Thin, reusable wrapper around RevenueCat (`purchases_flutter`).
 /// Depends only on [IapConfig] — drop this file + [IapConfig] into any app.
+/// Handles subscriptions/entitlements only; credits live on the backend.
 class PurchaseRepository {
-  static const _kCreditsKey = 'promptly_credits';
-
   // ── Setup ──────────────────────────────────────────────────────────────────
 
   /// Configure RevenueCat for the current platform. Call once at startup.
@@ -98,18 +96,6 @@ class PurchaseRepository {
   Future<bool> restore() async {
     final info = await Purchases.restorePurchases();
     return _active(info);
-  }
-
-  // ── Credit persistence ─────────────────────────────────────────────────────
-
-  Future<int> loadCredits() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(_kCreditsKey) ?? 0;
-  }
-
-  Future<void> saveCredits(int value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_kCreditsKey, value);
   }
 }
 

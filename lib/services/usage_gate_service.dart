@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:promptly/injection.dart';
-import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
-import 'package:promptly/in_app_purchase/iap_config.dart';
-import 'package:promptly/in_app_purchase/screens/credit_screen.dart';
 import 'package:promptly/in_app_purchase/screens/subscription_screen.dart' show UpsellScreen;
 import 'package:promptly/services/google_ads_material/ads_service.dart';
 import 'package:promptly/services/google_ads_material/ads_variable.dart';
 
-/// The single monetization gate for the hybrid (freemium + credits + subscription)
-/// model. Browsing is always free — this gate runs only on an *action*
-/// (Copy / use a prompt).
+/// The free-tier usage gate for non-subscribers. Browsing is always free —
+/// this runs only on an *action* (Copy / use a prompt). Credits are NOT used
+/// here (they're spent only by the backend-metered Generate feature).
 ///
 /// Order of precedence:
-///   1. Subscriber (`isPurchase`)      → allow, unlimited, no ad, no credit.
-///   2. Ads disabled (remote)          → allow (kept usable).
-///   3. Daily free uses remaining      → consume one, allow.
-///   4. Out of free uses               → show a choice sheet:
-///        • Watch a short ad (free)    → interstitial, then allow.
-///        • Use 1 credit (if any)      → CreditSpent event, then allow.
-///        • Go Premium                 → subscription paywall.
+///   1. Subscriber (`isPurchase`)  → allow, unlimited.
+///   2. Ads disabled (remote)      → allow (kept usable).
+///   3. Daily free uses remaining  → consume one, allow.
+///   4. Out of free uses           → choice sheet: Watch a short ad / Go Premium.
 ///      Dismissing the sheet cancels the action — it never hard-crashes.
 class UsageGateService {
   // SharedPrefs keys
@@ -72,44 +64,22 @@ class UsageGateService {
     await prefs.setString(_kUsageDate, _today());
   }
 
-  // ── Choice sheet (BlocBuilder — live credit balance) ───────────────────────
+  // ── Choice sheet ───────────────────────────────────────────────────────────
 
   static void _showChoiceSheet(VoidCallback onAllowed) {
-    final bloc = getIt<PurchaseBloc>();
     Get.bottomSheet(
-      BlocProvider.value(
-        value: bloc,
-        child: BlocBuilder<PurchaseBloc, PurchaseState>(
-          builder: (context, state) {
-            final hasCredits = state.credits >= IapConfig.creditCostPerUse;
-            return _GateSheet(
-              credits: state.credits,
-              hasCredits: hasCredits,
-              onWatchAd: () {
-                Get.back();
-                AdsService.instance.showInterstitial(onDone: onAllowed);
-              },
-              onUseCredit: () {
-                Get.back();
-                if (bloc.state.credits >= IapConfig.creditCostPerUse) {
-                  bloc.add(const CreditSpent(IapConfig.creditCostPerUse));
-                  onAllowed();
-                }
-              },
-              onGetCredits: () {
-                Get.back();
-                Get.to(() => const CreditScreen(), transition: Transition.downToUp);
-              },
-              onGoPremium: () {
-                Get.back();
-                Get.to(
-                  () => UpsellScreen(item: true, onSuccess: onAllowed),
-                  transition: Transition.downToUp,
-                );
-              },
-            );
-          },
-        ),
+      _GateSheet(
+        onWatchAd: () {
+          Get.back();
+          AdsService.instance.showInterstitial(onDone: onAllowed);
+        },
+        onGoPremium: () {
+          Get.back();
+          Get.to(
+            () => UpsellScreen(item: true, onSuccess: onAllowed),
+            transition: Transition.downToUp,
+          );
+        },
       ),
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
@@ -148,21 +118,10 @@ class UsageGateService {
 // ── Sheet UI ───────────────────────────────────────────────────────────────
 
 class _GateSheet extends StatelessWidget {
-  final int credits;
-  final bool hasCredits;
   final VoidCallback onWatchAd;
-  final VoidCallback onUseCredit;
-  final VoidCallback onGetCredits;
   final VoidCallback onGoPremium;
 
-  const _GateSheet({
-    required this.credits,
-    required this.hasCredits,
-    required this.onWatchAd,
-    required this.onUseCredit,
-    required this.onGetCredits,
-    required this.onGoPremium,
-  });
+  const _GateSheet({required this.onWatchAd, required this.onGoPremium});
 
   static const _accent = Color(0xFFCCFF00);
 
@@ -177,7 +136,6 @@ class _GateSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Grab handle
           Container(
             width: 40,
             height: 4,
@@ -203,7 +161,6 @@ class _GateSheet extends StatelessWidget {
           ),
           const SizedBox(height: 22),
 
-          // Watch a short ad — always free
           _OptionTile(
             icon: Icons.play_circle_fill_rounded,
             iconColor: _accent,
@@ -213,26 +170,6 @@ class _GateSheet extends StatelessWidget {
           ),
           const SizedBox(height: 12),
 
-          // Use a credit / get credits
-          if (hasCredits)
-            _OptionTile(
-              icon: Icons.bolt_rounded,
-              iconColor: _accent,
-              title: 'Use 1 credit',
-              subtitle: '$credits credits left',
-              onTap: onUseCredit,
-            )
-          else
-            _OptionTile(
-              icon: Icons.bolt_rounded,
-              iconColor: Colors.orange,
-              title: 'Get credits',
-              subtitle: 'Top up to skip ads',
-              onTap: onGetCredits,
-            ),
-          const SizedBox(height: 12),
-
-          // Go Premium — highlighted
           _OptionTile(
             icon: Icons.workspace_premium_rounded,
             iconColor: _accent,

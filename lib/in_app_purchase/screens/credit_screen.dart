@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:promptly/in_app_purchase/bloc/purchase_bloc.dart';
 import 'package:promptly/in_app_purchase/iap_config.dart';
 import 'package:promptly/injection.dart';
+import 'package:promptly/utils/auth_repository.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 // ── Colors ────────────────────────────────────────────────────────────────────
@@ -62,7 +63,7 @@ class _CreditController extends GetxController {
   Future<void> simulateBuy() async {
     isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 700));
-    getIt<PurchaseBloc>().add(CreditsGranted(selectedCredits));
+    await AuthRepository().addCredits(selectedCredits);
     isLoading.value = false;
     Get.back();
     _toast('🧪 [DEBUG] $selectedCredits credits added!');

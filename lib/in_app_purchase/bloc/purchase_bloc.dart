@@ -9,13 +9,17 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:promptly/in_app_purchase/iap_config.dart';
 import 'package:promptly/in_app_purchase/purchase_repository.dart';
 import 'package:promptly/services/google_ads_material/ads_variable.dart';
+import 'package:promptly/utils/auth_repository.dart';
 
 part 'purchase_event.dart';
 part 'purchase_state.dart';
 
-/// Event-driven subscription + credit state machine over [PurchaseRepository].
-/// App-lifetime singleton (registered in get_it). Mirrors every state change
+/// Event-driven SUBSCRIPTION state machine over [PurchaseRepository].
+/// App-lifetime singleton (registered in get_it). Mirrors subscription status
 /// into [AdsVariable] so the rest of the GetX/Obx app keeps reacting unchanged.
+///
+/// Credits are NOT tracked here — they live on the backend ([AuthRepository]).
+/// A successful purchase grants credits via [AuthRepository.addCredits].
 class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
   final PurchaseRepository _repo;
   StreamSubscription<bool>? _entitlementSub;
@@ -24,8 +28,6 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
     on<PurchaseStarted>(_onStarted);
     on<SubscriptionPurchaseRequested>(_onSubscription);
     on<CreditPackPurchaseRequested>(_onCreditPack);
-    on<CreditSpent>(_onCreditSpent);
-    on<CreditsGranted>(_onCreditsGranted);
     on<PurchasesRestoreRequested>(_onRestore);
     on<EntitlementChanged>(_onEntitlementChanged);
     on<DebugSimulateSubscription>(_onDebugSimulate);
@@ -35,12 +37,11 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
   }
 
   // ── Bridge ─────────────────────────────────────────────────────────────────
-  // Keep legacy AdsVariable readers (Obx in 7 files) in sync with every change.
+  // Keep legacy AdsVariable.isPurchase readers (Obx) in sync with every change.
   @override
   void onChange(Change<PurchaseState> change) {
     super.onChange(change);
     AdsVariable.isPurchase.value = change.nextState.isSubscribed;
-    AdsVariable.credits.value = change.nextState.credits;
   }
 
   // ── Handlers ─────────────────────────────────────────────────────────────
@@ -48,12 +49,7 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
   Future<void> _onStarted(PurchaseStarted e, Emitter<PurchaseState> emit) async {
     try {
       final active = await _repo.isEntitlementActive(forceRefresh: true);
-      final credits = await _repo.loadCredits();
-      emit(state.copyWith(
-        isSubscribed: active,
-        credits: credits,
-        status: PurchaseStatus.idle,
-      ));
+      emit(state.copyWith(isSubscribed: active, status: PurchaseStatus.idle));
     } catch (e, st) {
       FirebaseCrashlytics.instance
           .recordError(e, st, reason: 'PurchaseStarted failed', fatal: false);
@@ -87,16 +83,12 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
         ));
         return;
       }
+      // Grant the subscription bonus credits on the backend.
       final bonus = e.package.packageType == PackageType.annual
           ? IapConfig.yearlyCredits
           : IapConfig.monthlyCredits;
-      final credits = state.credits + bonus;
-      await _repo.saveCredits(credits);
-      emit(state.copyWith(
-        isSubscribed: true,
-        credits: credits,
-        status: PurchaseStatus.success,
-      ));
+      await AuthRepository().addCredits(bonus);
+      emit(state.copyWith(isSubscribed: true, status: PurchaseStatus.success));
     } on PlatformException catch (ex) {
       if (PurchasesErrorHelper.getErrorCode(ex) ==
           PurchasesErrorCode.purchaseCancelledError) {
@@ -125,30 +117,14 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
     emit(state.copyWith(status: PurchaseStatus.loading));
     try {
       await _repo.purchaseCreditProduct(e.productId);
-      final credits = state.credits + e.creditsToAdd;
-      await _repo.saveCredits(credits);
-      emit(state.copyWith(credits: credits, status: PurchaseStatus.success));
+      // Credit the backend; the UI reads the fresh balance from AuthRepository.
+      await AuthRepository().addCredits(e.creditsToAdd);
+      emit(state.copyWith(status: PurchaseStatus.success));
     } on PlatformException catch (e) {
       emit(_fromStoreError(e));
     } catch (e) {
       emit(state.copyWith(status: PurchaseStatus.error, error: e.toString()));
     }
-  }
-
-  Future<void> _onCreditSpent(CreditSpent e, Emitter<PurchaseState> emit) async {
-    if (state.credits < e.amount) return;
-    final credits = state.credits - e.amount;
-    await _repo.saveCredits(credits);
-    emit(state.copyWith(credits: credits, status: PurchaseStatus.idle));
-  }
-
-  Future<void> _onCreditsGranted(
-    CreditsGranted e,
-    Emitter<PurchaseState> emit,
-  ) async {
-    final credits = state.credits + e.amount;
-    await _repo.saveCredits(credits);
-    emit(state.copyWith(credits: credits, status: PurchaseStatus.success));
   }
 
   Future<void> _onRestore(
@@ -172,17 +148,13 @@ class PurchaseBloc extends Bloc<PurchaseEvent, PurchaseState> {
     emit(state.copyWith(isSubscribed: e.isActive, status: PurchaseStatus.idle));
   }
 
+  /// Debug-only — marks subscribed and grants bonus credits on the backend.
   Future<void> _onDebugSimulate(
     DebugSimulateSubscription e,
     Emitter<PurchaseState> emit,
   ) async {
-    final credits = state.credits + e.bonusCredits;
-    await _repo.saveCredits(credits);
-    emit(state.copyWith(
-      isSubscribed: true,
-      credits: credits,
-      status: PurchaseStatus.success,
-    ));
+    await AuthRepository().addCredits(e.bonusCredits);
+    emit(state.copyWith(isSubscribed: true, status: PurchaseStatus.success));
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────────

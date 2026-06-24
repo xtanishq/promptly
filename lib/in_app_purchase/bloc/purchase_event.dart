@@ -28,22 +28,6 @@ class CreditPackPurchaseRequested extends PurchaseEvent {
   List<Object?> get props => [productId, creditsToAdd];
 }
 
-/// Spend credits for a gated action (Copy / Generate).
-class CreditSpent extends PurchaseEvent {
-  final int amount;
-  const CreditSpent(this.amount);
-  @override
-  List<Object?> get props => [amount];
-}
-
-/// Grant credits directly (used by restore bonuses / debug simulate).
-class CreditsGranted extends PurchaseEvent {
-  final int amount;
-  const CreditsGranted(this.amount);
-  @override
-  List<Object?> get props => [amount];
-}
-
 /// User tapped "Restore Purchases".
 class PurchasesRestoreRequested extends PurchaseEvent {
   const PurchasesRestoreRequested();

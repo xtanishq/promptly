@@ -20,15 +20,19 @@ class AuthRepository extends ChangeNotifier {
   AuthRepository._internal();
 
   String? _accessToken;
+  String? _deviceId;
   int _credits = 0;
   int _overallUsedCredits = 0;
 
   String? get accessToken => _accessToken;
+  String? get deviceId => _deviceId;
   int get credits => _credits;
   int get overallUsedCredits => _overallUsedCredits;
 
   static const String _authUrl =
       'http://my-worker.scratched.workers.dev/api/promptly/auth';
+  static const String _addCreditsUrl =
+      'http://my-worker.scratched.workers.dev/api/promptly/add-credits';
 
   // flutter_secure_storage: Keychain on iOS, Keystore on Android
   static const _secureStorage = FlutterSecureStorage(
@@ -44,7 +48,45 @@ class AuthRepository extends ChangeNotifier {
 
   Future<void> authenticateUser() async {
     final deviceId = await _getOrCreatePersistentDeviceId();
+    _deviceId = deviceId;
     await _callAuthApi(deviceId);
+  }
+
+  /// Re-fetches the latest credits (and token) from the backend. Call after a
+  /// credit-changing event (purchase / generate) so the UI reflects the
+  /// authoritative server balance.
+  Future<void> refreshCredits() async {
+    final id = _deviceId ?? await _getOrCreatePersistentDeviceId();
+    _deviceId = id;
+    await _callAuthApi(id);
+  }
+
+  /// Adds [amount] credits to this device on the backend, then refreshes the
+  /// local balance. Returns true on success. Used after a credit-pack purchase
+  /// or a subscription bonus grant.
+  Future<bool> addCredits(int amount) async {
+    final id = _deviceId ?? await _getOrCreatePersistentDeviceId();
+    _deviceId = id;
+    try {
+      final response = await http
+          .post(
+            Uri.parse(_addCreditsUrl),
+            headers: {'Content-Type': 'application/json'},
+            body: json.encode({'device_id': id, 'credits': amount}),
+          )
+          .timeout(const Duration(seconds: 15));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        debugPrint('[AuthRepository] add-credits OK (+$amount) — refreshing');
+        await refreshCredits(); // server doesn't return balance → re-fetch
+        return true;
+      }
+      debugPrint('[AuthRepository] add-credits failed (${response.statusCode})');
+      return false;
+    } catch (e) {
+      debugPrint('[AuthRepository] add-credits error: $e');
+      return false;
+    }
   }
 
   // ─── Device ID (persistent across reinstalls) ─────────────────
